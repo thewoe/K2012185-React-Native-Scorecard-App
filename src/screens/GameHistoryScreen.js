@@ -2,14 +2,14 @@ import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { dummyData } from '../dummyData';
 
-const GameHistory = ({navigation}) => {
+const GameHistoryScreen = ({navigation}) => {
     return (
         <View>
             <FlatList
                 data={dummyData}
                 keyExtractor={dummyData => dummyData.id.toString()}
                 renderItem={({item}) => {
-                    console.log(new Date(item.match.dateTime).toLocaleString());
+                    console.log(item);
                     return (
                         <Pressable onPress={() => navigation.navigate('GameComplete', {item})}>
                             <View style={styles.itemContainer}>
@@ -24,15 +24,15 @@ const GameHistory = ({navigation}) => {
                                         </Text>
                                     </View>
                                     <View>
-                                        <Text style={(item.teams.scores.total.winner === 'team1') ? styles.winningTeam : styles.titleText}>{`${item.teams.team1.team1Name}`}</Text>
-                                        <Text style={(item.teams.scores.total.winner === 'team1') ? styles.winningTeam : styles.titleText}>{item.teams.scores.total.team1Score}</Text>
+                                        <Text style={(item.teams.finalscore.winner === 'team1') ? styles.winningTeam : styles.titleText}>{`${item.teams.team1.team1Name}`}</Text>
+                                        <Text style={(item.teams.finalscore.winner === 'team1') ? styles.winningTeam : styles.titleText}>{item.teams.finalscore.team1Score}</Text>
                                     </View>
                                     <View style={styles.vsContainer}>
                                         <Text style={styles.vsText}> vs </Text>
                                     </View>
                                     <View>
-                                    <Text style={(item.teams.scores.total.winner === 'team2') ? styles.winningTeam : styles.titleText}>{`${item.teams.team2.team2Name}`}</Text>
-                                        <Text style={(item.teams.scores.total.winner === 'team2') ? styles.winningTeam : styles.titleText}>{item.teams.scores.total.team2Score}</Text>
+                                    <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{`${item.teams.team2.team2Name}`}</Text>
+                                        <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{item.teams.finalscore.team2Score}</Text>
                                     </View>
                                     <Pressable onPress={() => navigation.navigate('EditItemScreen', {
                                         id: item.id,
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default GameHistory;
+export default GameHistoryScreen;
