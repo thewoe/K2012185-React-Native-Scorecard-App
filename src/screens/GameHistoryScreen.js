@@ -1,4 +1,5 @@
-import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 //import { dummyData } from '../dummyData';
 import ItemContext from '../contexts/ItemContext';
@@ -7,54 +8,57 @@ import { useContext } from 'react';
 const GameHistoryScreen = ({navigation}) => {
     const {state, remove, update} = useContext(ItemContext);
     return (
-        <View>
-            <FlatList
-                data={state}
-                keyExtractor={data => data.id.toString()}
-                renderItem={({item}) => {
-                    console.log(item);
-                    return (
-                        <Pressable onPress={() => navigation.navigate('GameComplete', {item})}>
-                            <View style={styles.itemContainer}>
-                                <Text style={styles.matchTitleText}>{item.match.title}</Text>
-                                <View style={styles.contentContainer}>
-                                    <View style={styles.dateContainer}>
-                                        <Text style={styles.dateText}>
-                                            {new Date(item.match.dateTime).toLocaleDateString()}
-                                        </Text>
-                                        <Text>
-                                            {new Date(item.match.dateTime).toLocaleTimeString()}
-                                        </Text>
+        <SafeAreaView>
+            <ScrollView>
+                <FlatList
+                    scrollEnabled={false}
+                    data={state}
+                    keyExtractor={data => data.id.toString()}
+                    renderItem={({item}) => {
+                        console.log(item);
+                        return (
+                            <Pressable onPress={() => navigation.navigate('GameComplete', {item})}>
+                                <View style={styles.itemContainer}>
+                                    <Text style={styles.matchTitleText}>{item.match.title}</Text>
+                                    <View style={styles.contentContainer}>
+                                        <View style={styles.dateContainer}>
+                                            <Text style={styles.dateText}>
+                                                {new Date(item.match.dateTime).toLocaleDateString()}
+                                            </Text>
+                                            <Text>
+                                                {new Date(item.match.dateTime).toLocaleTimeString()}
+                                            </Text>
+                                        </View>
+                                        <View>
+                                            <Text style={(item.teams.finalscore.winner === 'team1') ? styles.winningTeam : styles.titleText}>{`${item.teams.team1.team1Name}`}</Text>
+                                            <Text style={(item.teams.finalscore.winner === 'team1') ? styles.winningTeam : styles.titleText}>{item.teams.finalscore.team1Score}</Text>
+                                        </View>
+                                        <View style={styles.vsContainer}>
+                                            <Text style={styles.vsText}> vs </Text>
+                                        </View>
+                                        <View>
+                                        <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{`${item.teams.team2.team2Name}`}</Text>
+                                            <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{item.teams.finalscore.team2Score}</Text>
+                                        </View>
+                                        <Pressable onPress={() => navigation.navigate('EditItemScreen', {
+                                            id: item.id,
+                                            title: item.title,
+                                            content: item.content,
+                                            date: item.date.toUTCString()
+                                        })}>
+                                            <MaterialIcons name='edit' size={38} color='red' />
+                                        </Pressable>
+                                        <Pressable onPress={() => remove(item.id)}>
+                                            <MaterialIcons name='delete' size={38} color='red' />
+                                        </Pressable>
                                     </View>
-                                    <View>
-                                        <Text style={(item.teams.finalscore.winner === 'team1') ? styles.winningTeam : styles.titleText}>{`${item.teams.team1.team1Name}`}</Text>
-                                        <Text style={(item.teams.finalscore.winner === 'team1') ? styles.winningTeam : styles.titleText}>{item.teams.finalscore.team1Score}</Text>
-                                    </View>
-                                    <View style={styles.vsContainer}>
-                                        <Text style={styles.vsText}> vs </Text>
-                                    </View>
-                                    <View>
-                                    <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{`${item.teams.team2.team2Name}`}</Text>
-                                        <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{item.teams.finalscore.team2Score}</Text>
-                                    </View>
-                                    <Pressable onPress={() => navigation.navigate('EditItemScreen', {
-                                        id: item.id,
-                                        title: item.title,
-                                        content: item.content,
-                                        date: item.date.toUTCString()
-                                    })}>
-                                        <MaterialIcons name='edit' size={38} color='red' />
-                                    </Pressable>
-                                    <Pressable onPress={() => remove(item.id)}>
-                                        <MaterialIcons name='delete' size={38} color='red' />
-                                    </Pressable>
                                 </View>
-                            </View>
-                        </Pressable>
-                    );
-                }}
-            />
-        </View>
+                            </Pressable>
+                        );
+                    }}
+                />
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 
