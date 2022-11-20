@@ -1,9 +1,12 @@
-import { View, Text } from 'react-native';
+import { useState } from 'react';
+import { View, Text, Button } from 'react-native';
 
 const ScorecardScoresScreen = () => {
+    const [counter, setCounter] = useState(0);
     return (
         <View>
-            <Text>Add/Edit Scorecard Scores Screen</Text>
+      <Button onClick={() => {setCounter(counter + 1)}} title='Increment' />
+      <Text>{`Count: ${counter}`}</Text>
         </View>
     );
 };

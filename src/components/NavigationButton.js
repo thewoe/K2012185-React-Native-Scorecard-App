@@ -1,11 +1,11 @@
 import { Button, StyleSheet } from 'react-native';
 
-const NavigationButton = ({ color, screenName, navigation }) => {
+const NavigationButton = ({ color, message, screenName, navigation, data=null }) => {
     return (
         <Button 
             color={color}
-            title={`Go to ${screenName}`}
-            onPress={() => navigation.navigate(screenName)} 
+            title={message}
+            onPress={() => navigation.navigate(screenName, data)}
         />
     );
 }

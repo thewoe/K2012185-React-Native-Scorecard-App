@@ -1,10 +1,23 @@
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
+import { useState } from 'react';
 
 const ScorecardEndScreen = () => {
+  const [player, setPlayer] = useState({
+    firstName: 'Ranjani',
+    lastName: 'Shettar',
+    score: 10,
+  });
+  function handlePlusClick() {
+    setPlayer({
+      ...player,
+      score: player.score + 1,
+    });
+  }
     return (
-        <View>
-            <Text>Add/Edit Scorecard End Screen</Text>
-        </View>
+      <View>
+        <Button onPress={handlePlusClick} title='Incrememnt'/>
+        <Text>{player.score}</Text>
+      </View>
     );
 };
 

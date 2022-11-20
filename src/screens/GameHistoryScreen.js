@@ -1,13 +1,16 @@
 import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { dummyData } from '../dummyData';
+//import { dummyData } from '../dummyData';
+import ItemContext from '../contexts/ItemContext';
+import { useContext } from 'react';
 
 const GameHistoryScreen = ({navigation}) => {
+    const {state, remove, update} = useContext(ItemContext);
     return (
         <View>
             <FlatList
-                data={dummyData}
-                keyExtractor={dummyData => dummyData.id.toString()}
+                data={state}
+                keyExtractor={data => data.id.toString()}
                 renderItem={({item}) => {
                     console.log(item);
                     return (
