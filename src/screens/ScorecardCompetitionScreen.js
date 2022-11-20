@@ -55,7 +55,7 @@ const ScorecardCompetitionScreen = ({navigation}) => {
                 <Text style={styles.textLabel}>Enter the rink number</Text>
                 <TextInput
                     style={styles.textInput}
-                    keyboardType='numeric'
+                    keyboardType='number-pad'
                     placeholder='Type rink number here'
                     value={rinkNumber}
                     onChangeText={input => setRinkNumber(input)}
@@ -85,7 +85,7 @@ const ScorecardCompetitionScreen = ({navigation}) => {
                 <Text style={styles.textLabel}>Enter the number of ends</Text>
                 <TextInput
                     style={styles.textInput}
-                    keyboardType='numeric'
+                    keyboardType='number-pad'
                     placeholder='Type number of ends here'
                     value={numberOfEnds}
                     onChangeText={input => setNumberOfEnds(input)}
