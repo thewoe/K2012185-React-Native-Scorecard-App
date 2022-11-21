@@ -4,6 +4,8 @@ import ScorecardCompetitionScreen from '../screens/ScorecardCompetitionScreen';
 import ScorecardEndScreen from '../screens/ScorecardEndScreen';
 import ScorecardScoresScreen from '../screens/ScorecardScoresScreen';
 import ScorecardTeamScreen from '../screens/ScorecardTeamScreen';
+import EndCameraScreen from '../screens/EndCameraScreen';
+import EndPhotoScreen from '../screens/EndPhotoScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +17,8 @@ const NewGameNavigator = () => {
         <Stack.Screen name='ScorecardEnd' component={ScorecardEndScreen} options={{ title: 'New Scorecard' }} />
         <Stack.Screen name='ScorecardScores' component={ScorecardScoresScreen} options={{ title: 'New Scorecard' }} />
         <Stack.Screen name='ScorecardTeam' component={ScorecardTeamScreen} options={{ title: 'New Scorecard' }} />
+        <Stack.Screen name='EndCamera' component={EndCameraScreen} options={{ title: 'Take End Picture' }} />
+        <Stack.Screen name='EndPhoto' component={EndPhotoScreen} options={{ title: 'View End Picture' }} />
       </Stack.Navigator>
     );
 };

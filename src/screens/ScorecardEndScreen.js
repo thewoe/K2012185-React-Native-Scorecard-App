@@ -117,7 +117,7 @@ const ScorecardEndScreen = ({navigation, route}) => {
                       />
                       <Text style={styles.textLabel}>TOTAL</Text>
                       {/* <Text style={styles.textLabel}>{(item.end <3) ? 0 : ends[item.end-1].team2Score}</Text> */}
-                      <Button onPress={() => handleAddEndClick(item.end)} title='Submit End Result' />
+                      <NavigationButton color='green' message='Take Picture' screenName='EndCamera' navigation={navigation} />
                     </View>
                 );
             })}
