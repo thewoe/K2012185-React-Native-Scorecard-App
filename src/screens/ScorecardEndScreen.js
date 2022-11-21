@@ -4,10 +4,8 @@ import { useState } from 'react';
 import NavigationButton from '../components/NavigationButton';
 
 const ScorecardEndScreen = ({navigation, route}) => {
-  const scorecard = route.params;
-  console.log(scorecard.team1Name);
-  const team1Name = scorecard.team1Name;
-  const team2Name = scorecard.team2Name;
+  const { competitionName, dateTime, rinkNumber, team1Name, team2Name, team1Players, team2Players } = route.params;
+  console.log(competitionName, dateTime, rinkNumber, team1Name, team2Name, team1Players, team2Players);
 
   const [endFields, setEndFields] = useState([{
     end: 1, 
@@ -86,7 +84,7 @@ const ScorecardEndScreen = ({navigation, route}) => {
   return (
         <ScrollView>
             <Text style={styles.textLabel}>Enter Score</Text>
-            <Button onPress={handleNewEndClick} title='Add another player' />
+            <Button onPress={handleNewEndClick} title='Add another end' />
             {endFields.map((item) => {
                 return (
                     <View key={item.end}>
@@ -123,7 +121,14 @@ const ScorecardEndScreen = ({navigation, route}) => {
             })}
             <NavigationButton color='blue' message='Cancel' screenName='Home' navigation={navigation} />
             <NavigationButton color='blue' message='Next' screenName='GameComplete' navigation={navigation} data={{
-                item: scorecard
+                competitionName, 
+                dateTime, 
+                rinkNumber, 
+                team1Name, 
+                team2Name, 
+                team1Players, 
+                team2Players,
+                ends: ends
             }} />
         </ScrollView>
     );

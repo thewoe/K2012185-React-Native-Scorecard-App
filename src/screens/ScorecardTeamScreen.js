@@ -1,24 +1,90 @@
 import { useState, useEffect } from 'react';
-import { ScrollView, Text, TextInput, FlatList, Button, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, TextInput, FlatList, Button, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import NavigationButton from '../components/NavigationButton';
 
 const ScorecardTeamScreen = ({navigation, route}) => {
-    const scorecard = route.params;
+    const { competitionName, dateTime, rinkNumber } = route.params;
+    console.log(competitionName, dateTime, rinkNumber);
 
-    // const competitionName = scorecard.match.title;
-    // const dateTime = scorecard.match.dateTime;
-    // const rinkNumber = scorecard.match.rinkNumber;
     const [team1Name, setTeam1Name] = useState('');
     const [team2Name, setTeam2Name] = useState('');
-    const [team1Player1Name, setTeam1Player1Name] = useState('');
-    const [team1Player2Name, setTeam1Player2Name] = useState('');
-    const [team1Player3Name, setTeam1Player3Name] = useState('');
-    const [team1Player4Name, setTeam1Player4Name] = useState('');
-    const [team2Player1Name, setTeam2Player1Name] = useState('');
-    const [team2Player2Name, setTeam2Player2Name] = useState('');
-    const [team2Player3Name, setTeam2Player3Name] = useState('');
-    const [team2Player4Name, setTeam2Player4Name] = useState('');
+    const [team1Players, setTeam1Players] = useState([]);
+    const [team2Players, setTeam2Players] = useState([]);
+    const [team1PlayerID, setTeam1PlayerID] = useState(2);
+    const [team1PlayerFields, setTeam1PlayerFields] = useState([{id: 1}]);
+    const [team2PlayerID, setTeam2PlayerID] = useState(2);
+    const [team2PlayerFields, setTeam2PlayerFields] = useState([{id: 1}]);
+    const [displayTeam1AddNewPlayer, setDisplayTeam1AddNewPlayer] = useState(true);
+    const [displayTeam2AddNewPlayer, setDisplayTeam2AddNewPlayer] = useState(true);
+
+    const handleNewTeam1PlayerClick = () => {
+        if (team1PlayerFields.length <= 3) {
+            setTeam1PlayerFields([...team1PlayerFields, {
+            id: team1PlayerID,
+            }]);
+            setTeam1PlayerID(team1PlayerID + 1);
+        }
+        else {
+            setDisplayTeam1AddNewPlayer(false);
+        }
+    };
+
+    const handleNewTeam2PlayerClick = () => {
+        if (team2PlayerFields.length <= 3) {
+            setTeam2PlayerFields([...team2PlayerFields, {
+            id: team2PlayerID,
+            }]);
+            setTeam2PlayerID(team2PlayerID + 1);
+        }
+        else {
+            setDisplayTeam2AddNewPlayer(false);
+        }
+    };
+
+    const handleTeam1PlayerTextInput = (input, id) => {
+        const playerExists = team1Players.find(player => player.id === id);
+        if (playerExists) {
+            const updatePlayers = team1Players.map(player => {
+                if (player.id === id) {
+                    console.log('Found it');
+                    return { ...player, name: input }
+                }
+                return player;
+            });
+            setTeam1Players(updatePlayers);
+        }
+        else {
+            console.log('new player');
+            const newPlayer = {
+                id: id,
+                name: input
+            }
+            setTeam1Players([...team1Players, newPlayer]);
+        }
+    };
+
+    const handleTeam2PlayerTextInput = (input, id) => {
+        const playerExists = team2Players.find(player => player.id === id);
+        if (playerExists) {
+            const updatePlayers = team2Players.map(player => {
+                if (player.id === id) {
+                    console.log('Found it');
+                    return { ...player, name: input }
+                }
+                return player;
+            });
+            setTeam2Players(updatePlayers);
+        }
+        else {
+            console.log('new player');
+            const newPlayer = {
+                id: id,
+                name: input
+            }
+            setTeam2Players([...team2Players, newPlayer]);
+        }
+    };
 
     return (
         <SafeAreaView>
@@ -31,85 +97,52 @@ const ScorecardTeamScreen = ({navigation, route}) => {
                     onChangeText={input => setTeam1Name(input)}
                     autoFocus={true}
                 />
-                <Text style={styles.textLabel}>Enter Team 1's Player 1 Name:</Text>
-                <Text>This player is Team 1's skip</Text>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder='Type Team 1 player name here'
-                    value={team1Player1Name}
-                    onChangeText={input => setTeam1Player1Name(input)}
-                />
-                <Text style={styles.textLabel}>Enter Team 1's Player 2 Name:</Text>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder='Type Team 1 player name here'
-                    value={team1Player2Name}
-                    onChangeText={input => setTeam1Player2Name(input)}
-                />
-                <Text style={styles.textLabel}>Enter Team 1's Player 3 Name:</Text>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder='Type Team 1 player name here'
-                    value={team1Player3Name}
-                    onChangeText={input => setTeam1Player3Name(input)}
-                />
+                {team1PlayerFields.map((item) =>{
+                    return (
+                        <View key={item.id}>
+                            <Text style={styles.textLabel}>{`Enter Player ${item.id}'s Name`}</Text>
+                            { (item.id === 1) && <Text>This player is Team 1's skip</Text> }
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder='Type team 1 player name here'
+                                value={team1Players[item.id]}
+                                onChangeText={input => handleTeam1PlayerTextInput(input, item.id)}
+                            />
+                        </View>
+                    );
+                })}
+                { displayTeam1AddNewPlayer && <Button onPress={handleNewTeam1PlayerClick} title='Add another Team 1 player' /> }
                 <Text style={styles.textLabel}>Enter Team 2's Name:</Text>
                 <TextInput
                     style={styles.textInput}
                     placeholder='Type Team 2 name here'
                     value={team2Name}
                     onChangeText={input => setTeam2Name(input)}
-                    autoFocus={true}
                 />
-                <Text style={styles.textLabel}>Enter Team 1's Player 4 Name:</Text>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder='Type Team 1 player name here'
-                    value={team1Player4Name}
-                    onChangeText={input => setTeam1Player4Name(input)}
-                />
-                <Text style={styles.textLabel}>Enter Team 2's Player 1 Name:</Text>
-                <Text>This player is Team 2's skip</Text>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder='Type Team 2 player name here'
-                    value={team2Player1Name}
-                    onChangeText={input => setTeam2Player1Name(input)}
-                />
-                <Text style={styles.textLabel}>Enter Team 2's Player 2 Name:</Text>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder='Type Team 2 player name here'
-                    value={team2Player2Name}
-                    onChangeText={input => setTeam2Player2Name(input)}
-                />
-                <Text style={styles.textLabel}>Enter Team 2's Player 3 Name:</Text>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder='Type Team 2 player name here'
-                    value={team2Player3Name}
-                    onChangeText={input => setTeam2Player3Name(input)}
-                />
-                <Text style={styles.textLabel}>Enter Team 2's Player 4 Name:</Text>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder='Type Team 2 player name here'
-                    value={team2Player4Name}
-                    onChangeText={input => setTeam2Player4Name(input)}
-                />
+                {team2PlayerFields.map((item) =>{
+                    return (
+                        <View key={item.id}>
+                            <Text style={styles.textLabel}>{`Enter Player ${item.id}'s Name`}</Text>
+                            { (item.id === 1) && <Text>This player is Team 2's skip</Text> }
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder='Type team 2 player name here'
+                                value={team2Players[item.id]}
+                                onChangeText={input => handleTeam2PlayerTextInput(input, item.id)}
+                            />
+                        </View>
+                    );
+                })}
+                { displayTeam2AddNewPlayer && <Button onPress={handleNewTeam2PlayerClick} title='Add another Team 2 player' /> }
                 <NavigationButton color='blue' message='Cancel' screenName='Home' navigation={navigation} />
                 <NavigationButton color='blue' message='Next' screenName='ScorecardEnd' navigation={navigation} data={{
-                    match: scorecard,
+                    competitionName: competitionName, 
+                    dateTime: dateTime, 
+                    rinkNumber: rinkNumber,
                     team1Name: team1Name,
                     team2Name: team2Name,
-                    team1Player1Name: team1Player1Name,
-                    team1Player2Name: team1Player2Name,
-                    team1Player3Name: team1Player3Name,
-                    team1Player4Name: team1Player4Name,
-                    team2Player1Name: team2Player1Name,
-                    team2Player2Name: team2Player2Name,
-                    team2Player3Name: team2Player3Name,
-                    team2Player4Name: team2Player4Name
+                    team1Players: team1Players,
+                    team2Players: team2Players
                 }} />
             </ScrollView>
         </SafeAreaView>
