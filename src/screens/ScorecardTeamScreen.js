@@ -29,7 +29,7 @@ const ScorecardTeamScreen = ({navigation, route}) => {
             }]);
             setTeam1PlayerID(team1PlayerID + 1);
         }
-        else {
+        if (team1PlayerFields.length === 3) {
             setDisplayTeam1AddNewPlayer(false);
         }
     };
@@ -41,7 +41,7 @@ const ScorecardTeamScreen = ({navigation, route}) => {
             }]);
             setTeam2PlayerID(team2PlayerID + 1);
         }
-        else {
+        if (team2PlayerFields.length === 3) {
             setDisplayTeam2AddNewPlayer(false);
         }
     };
