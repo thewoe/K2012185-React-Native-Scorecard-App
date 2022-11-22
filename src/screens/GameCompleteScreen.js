@@ -1,14 +1,17 @@
+import { useContext } from 'react';
 import { ScrollView, View, Text, StyleSheet, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SectionBreak from '../components/SectionBreak';
 import SectionDetail from '../components/SectionDetail';
+import ItemContext from '../contexts/ItemContext';
 
 const GameCompleteScreen = ({route}) => {
-    const { item } = route.params;
+    const { state } = useContext(ItemContext);
+    const { id } = route.params;
+    const item = state.map(game => {
+        if (game.id === id) return game;
+    });
     console.log(item);
-    const winningTeam = item.teams.finalscore.winner;
-    const winningTeamName = (winningTeam === 'team1') ? item.teams.team1.team1Name : item.teams.team2.team2Name;
-    const winningScore = (winningTeam === 'team1') ? item.teams.finalscore.team1Score : item.teams.finalscore.team2Score;
     return (
         <SafeAreaView>
             <ScrollView>
@@ -18,7 +21,7 @@ const GameCompleteScreen = ({route}) => {
                             <View>
                                 <SectionBreak headerTitle='Winner' />
                                 <Text>And the winner is...</Text>
-                                <Text>{winningTeamName}</Text>
+                                {/* <Text>{item.teams.finalscore.winner}</Text> */}
                                 <Text>{`Totalling ${winningScore} points`}</Text>
                                 <SectionBreak headerTitle='Game Information' />
                                 <SectionDetail title='Competition Name' details={item.match.title} />

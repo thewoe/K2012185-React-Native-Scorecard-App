@@ -3,7 +3,8 @@ import { Pressable, StyleSheet, View, Text } from 'react-native';
 import { Camera, CameraType, FlashMode } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 
-const EndCameraScreen = ({navigation}) => {
+const EndCameraScreen = ({navigation, route}) => {
+    const { end } = route.params;
     const [hasCameraPermission, setHasCameraPermission] = useState(null);
     const [hasLibraryPermission, setHasLibraryPermission] = useState(null);
     const [cameraType, setCameraType] = useState(CameraType.back);
@@ -18,7 +19,7 @@ const EndCameraScreen = ({navigation}) => {
         if (camera) {
             const { uri } = await camera.takePictureAsync();
             const persistantUri = await MediaLibrary.createAssetAsync(uri)
-            navigation.navigate('EndPhoto', { uri: persistantUri.uri })
+            navigation.navigate('EndPhoto', { uri: persistantUri.uri, end: end })
         }
     };
     const toggleCamera = () => setCameraType(current => (current === CameraType.back ? CameraType.front : CameraType.back));

@@ -31,20 +31,17 @@ const GameHistoryScreen = ({navigation}) => {
                                         </View>
                                         <View>
                                             <Text style={(item.teams.finalscore.winner === 'team1') ? styles.winningTeam : styles.titleText}>{`${item.teams.team1.team1Name}`}</Text>
-                                            <Text style={(item.teams.finalscore.winner === 'team1') ? styles.winningTeam : styles.titleText}>{item.teams.finalscore.team1Score}</Text>
+                                            <Text style={(item.teams.finalscore.winner === 'team1') ? styles.winningTeam : styles.titleText}>{`${item.teams.finalscore.team1Score}`}</Text>
                                         </View>
                                         <View style={styles.vsContainer}>
                                             <Text style={styles.vsText}> vs </Text>
                                         </View>
                                         <View>
                                         <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{`${item.teams.team2.team2Name}`}</Text>
-                                            <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{item.teams.finalscore.team2Score}</Text>
+                                            <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{`${item.teams.finalscore.team2Score}`}</Text>
                                         </View>
                                         <Pressable onPress={() => navigation.navigate('EditItemScreen', {
-                                            id: item.id,
-                                            title: item.title,
-                                            content: item.content,
-                                            date: item.date.toUTCString()
+                                            id: item.id
                                         })}>
                                             <MaterialIcons name='edit' size={38} color='red' />
                                         </Pressable>
