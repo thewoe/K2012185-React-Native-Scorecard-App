@@ -85,12 +85,12 @@ const ScorecardEndScreen = ({navigation, route}) => {
 
   const calculateTeam1Score = (shots) => {
     if (ends.length === 0) return 0;
-    return (ends.reduce((totalScore, end) => totalScore + end.team1Shots) + shots);
+    return parseInt((ends.reduce((totalScore, end) => totalScore + end.team1Shots) + shots));
   };
 
   const calculateTeam2Score = (shots) => {
     if (ends.length === 0) return 0;
-    return (ends.reduce((totalScore, end) => totalScore + end.team2Shots) + shots);
+    return parseInt((ends.reduce((totalScore, end) => totalScore + end.team2Shots) + shots));
   };
 
   return (
@@ -129,8 +129,8 @@ const ScorecardEndScreen = ({navigation, route}) => {
         <Button onPress={handleNewEndClick} title='Add another end' />
         <NavigationButton color='blue' message='Cancel' screenName='Home' navigation={navigation} />
         <Button title='Next' onPress={() => {
-          console.log(ends[ends.length-1]);
-          console.log([ends[ends.length-1].team1Score]);
+          console.log('THIS IS WHAT IT LOOKS LIKE: ' + ends[ends.length-1].team1Score.toString());
+          console.log([ends[ends.length-1].team1Score].toString());
           const id = Math.floor(Math.random() * 99999);
           const match = { 
               dateTime: dateTime,
@@ -148,8 +148,8 @@ const ScorecardEndScreen = ({navigation, route}) => {
               },
               scores: ends,
               finalscore: {
-                team1Score: parseInt(ends[ends.length-1].team1Score),
-                team2Score: parseInt(ends[ends.length-1].team2Score),
+                team1Score: ends[ends.length-1].team1Score.toString(),
+                team2Score: ends[ends.length-1].team2Score.toString(),
                 winner: (ends[ends.length-1].team1Score > ends[ends.length-1].team2Score) ? "team1" : "team2"
               }
           };
