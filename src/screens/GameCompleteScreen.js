@@ -1,9 +1,10 @@
 import { useContext } from 'react';
-import { ScrollView, View, Text, StyleSheet, FlatList } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, FlatList, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SectionBreak from '../components/SectionBreak';
 import SectionDetail from '../components/SectionDetail';
 import ItemContext from '../contexts/ItemContext';
+import { Feather } from '@expo/vector-icons';
 
 const GameCompleteScreen = ({route}) => {
     const { state } = useContext(ItemContext);
@@ -164,7 +165,7 @@ const GameCompleteScreen = ({route}) => {
                                 <Text>{`Team 1 Score: ${item.team1Score}`}</Text>
                                 <Text>{`Team 2 Shots: ${item.team2Shots}`}</Text>
                                 <Text>{`Team 2 Score: ${item.team2Score}`}</Text>
-                                <Text>{`Image URI: ${item.imageUri}`}</Text>
+                                {item.imageUri && <Pressable onPress={navigation.navigate('ViewEndPhoto', { uri: item.imageUri })}><Feather name="camera" size={24} color="black"/></Pressable>}
                             </View>
                         );
                     }}
