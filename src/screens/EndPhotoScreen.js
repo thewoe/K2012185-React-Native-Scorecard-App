@@ -6,7 +6,7 @@ const EndPhotoScreen = ({route, navigation}) => {
     return (
         <View style={styles.container}>
             <Image style={styles.imageStyle} source={{ uri: uri }} />
-            <NavigationButton color='green' message='Done' screenName='ScorecardEnd' navigation={navigation} data={{ uri: uri, end: end }} />
+            <NavigationButton color='green' message='Done' screenName='ScorecardEnd' navigation={navigation} data={ {image: { uri: uri, end: end }}} />
         </View>
     );
 }

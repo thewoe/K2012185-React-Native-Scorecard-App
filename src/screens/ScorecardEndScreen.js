@@ -1,11 +1,11 @@
 import { ScrollView, View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import ItemContext from '../contexts/ItemContext';
 import NavigationButton from '../components/NavigationButton';
 
 const ScorecardEndScreen = ({navigation, route}) => {
-  const { competitionName, dateTime, rinkNumber, team1Name, team2Name, team1Players, team2Players, end } = route.params;
+  const { competitionName, dateTime, rinkNumber, team1Name, team2Name, team1Players, team2Players, image } = route.params;
   console.log(competitionName, dateTime, rinkNumber, team1Name, team2Name, team1Players, team2Players);
   const { create } = useContext(ItemContext);
 
@@ -13,6 +13,24 @@ const ScorecardEndScreen = ({navigation, route}) => {
   const [ends, setEnds] = useState([]);
   const [endID, setEndID] = useState(2);
   const [endFields, setEndFields] = useState([{end: 1}]);
+  const [returnedImage, setReturnedImage] = useState(null);
+
+  const handleReturnedImage = () => {
+    if (image) {
+      const addImage = ends.map(end => {
+        if (end.end === image.end) {
+          return { 
+            ...end,
+            imageUri: image.uri
+          }
+        }
+        return end;
+      });
+      setEnds(addImage);
+    }
+  };
+
+  useEffect(() => handleReturnedImage(), [image]);
 
   const handleNewEndClick = () => {
     setEndFields([...endFields, {
