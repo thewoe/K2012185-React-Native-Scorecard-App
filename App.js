@@ -8,6 +8,7 @@ import SettingsScreen from './src/screens/SettingsScreen';
 import { MaterialIcons, AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import { ItemProvider } from './src/contexts/ItemContext';
 
+// Below code required independent research, to create a nested navigator, i.e., a stack navigator for a screen indexed by the tab navigator
 const App = () => {
   const Tab = createBottomTabNavigator();
   return (

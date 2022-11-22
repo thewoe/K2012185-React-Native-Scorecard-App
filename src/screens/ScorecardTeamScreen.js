@@ -7,6 +7,7 @@ const ScorecardTeamScreen = ({navigation, route}) => {
     const { competitionName, dateTime, rinkNumber } = route.params;
     console.log(competitionName, dateTime, rinkNumber);
 
+    // Below code required independent research, to dynmically create and manage player input fields on clicking a button
     const [team1Name, setTeam1Name] = useState('');
     const [team2Name, setTeam2Name] = useState('');
     const [team1Players, setTeam1Players] = useState([]);

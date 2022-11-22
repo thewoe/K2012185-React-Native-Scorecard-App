@@ -9,6 +9,7 @@ const ScorecardEndScreen = ({navigation, route}) => {
   console.log(competitionName, dateTime, rinkNumber, team1Name, team2Name, team1Players, team2Players);
   const { create } = useContext(ItemContext);
 
+  // Below code required independent research, to dynmically create and manage end input fields on clicking a button
   const [ends, setEnds] = useState([]);
   const [endID, setEndID] = useState(2);
   const [endFields, setEndFields] = useState([{end: 1}]);

@@ -13,6 +13,7 @@ const ScorecardCompetitionScreen = ({navigation}) => {
     // const [team2NumberOfPlayers, setTeam2NumberOfPlayers] = useState(0);
     //const [numberOfEnds, setNumberOfEnds] = useState(0);
 
+    // Below code required independent research, to create a cross-platform datetime picker to select the match date and time
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
@@ -25,6 +26,7 @@ const ScorecardCompetitionScreen = ({navigation}) => {
     const showTimepicker = () => showMode('time');
     const hideMode = () => setShow(false);
 
+    // Below code required independent research, to create hide keyboard on user tapping away from the input field
     return (
         <SafeAreaView>
             <ScrollView keyboardDismissMode='on-drag'>

@@ -95,6 +95,8 @@ const GameCompleteScreen = ({route}) => {
         }
     ];
     // console.log('ITEM TITLE' + item[0].match.title.toString());
+    // Below code required independent research, to allow additional components to be placed in a FlatList, 
+    // but only contained at the top of the FlatList (not repeated through each iteration)
     return (
         <SafeAreaView>
             <ScrollView>

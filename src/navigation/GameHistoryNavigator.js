@@ -8,6 +8,8 @@ import ScorecardTeamScreen from '../screens/ScorecardTeamScreen';
 import EndCameraScreen from '../screens/EndCameraScreen';
 import EndPhotoScreen from '../screens/EndPhotoScreen';
 
+// Below code required independent research, to create a nested navigator, i.e., a stack navigator for a screen indexed by the tab navigator
+
 const Stack = createNativeStackNavigator();
 
 const GameHistoryNavigator = () => {
