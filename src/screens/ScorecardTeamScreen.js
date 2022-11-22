@@ -8,6 +8,9 @@ const ScorecardTeamScreen = ({navigation, route}) => {
     console.log(competitionName, dateTime, rinkNumber);
 
     // Below code required independent research, to dynmically create and manage player input fields on clicking a button
+    const [receivedCompetitionName, setCompetitionName] = useState(competitionName);
+    const [receivedDateTime, setReceivedDateTime] = useState(dateTime);
+    const [receivedRinkNumber, setReceivedRinkNumber] = useState(rinkNumber);
     const [team1Name, setTeam1Name] = useState('');
     const [team2Name, setTeam2Name] = useState('');
     const [team1Players, setTeam1Players] = useState([]);
@@ -135,11 +138,10 @@ const ScorecardTeamScreen = ({navigation, route}) => {
                     );
                 })}
                 { displayTeam2AddNewPlayer && <Button onPress={handleNewTeam2PlayerClick} title='Add another Team 2 player' /> }
-                <NavigationButton color='blue' message='Cancel' screenName='Home' navigation={navigation} />
                 <NavigationButton color='blue' message='Next' screenName='ScorecardEnd' navigation={navigation} data={{
-                    competitionName: competitionName, 
-                    dateTime: dateTime, 
-                    rinkNumber: rinkNumber,
+                    competitionName: receivedCompetitionName, 
+                    dateTime: receivedDateTime, 
+                    rinkNumber: receivedRinkNumber,
                     team1Name: team1Name,
                     team2Name: team2Name,
                     team1Players: team1Players,

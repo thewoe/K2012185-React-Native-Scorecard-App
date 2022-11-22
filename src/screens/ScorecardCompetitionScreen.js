@@ -92,7 +92,6 @@ const ScorecardCompetitionScreen = ({navigation}) => {
                     value={numberOfEnds}
                     onChangeText={input => setNumberOfEnds(input)}
                 /> */}
-                <NavigationButton color='blue' message='Cancel' screenName='Home' navigation={navigation} />
                 <NavigationButton color='blue' message='Next' screenName='ScorecardTeam' navigation={navigation} data={{
                     competitionName: competitionName,
                     dateTime: dateTime.toISOString(),

@@ -90,7 +90,7 @@ const GameCompleteScreen = ({route, navigation}) => {
                             </View>
                         );
                     }}
-                    ListFooterComponent={<Button color='blue' title='Done' onPress={() => navigation.navigate('GameHistory')} />}
+                    ListFooterComponent={<Button color='blue' title='Done' onPress={() => navigation.navigate('GameHistoryMain')} />}
                 />
             </ScrollView>
         </SafeAreaView>

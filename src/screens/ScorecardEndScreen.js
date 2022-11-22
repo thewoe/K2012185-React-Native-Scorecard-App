@@ -8,7 +8,13 @@ const ScorecardEndScreen = ({navigation, route}) => {
   const { competitionName, dateTime, rinkNumber, team1Name, team2Name, team1Players, team2Players, image } = route.params;
   //console.log(competitionName, dateTime, rinkNumber, team1Name, team2Name, team1Players, team2Players);
   const { create } = useContext(ItemContext);
-
+  const [receivedCompetitionName, setReceivedCompetitionName] = useState(competitionName);
+  const [receivedDateTime, setReceivedDateTime] = useState(dateTime);
+  const [receivedRinkNumber, setReceivedRinkNumber] = useState(rinkNumber);
+  const [receivedTeam1Name, setReceivedTeam1Name] = useState(team1Name);
+  const [receivedTeam2Name, setReceivedTeam2Name] = useState(team2Name);
+  const [receivedTeam1Players, setReceivedTeam1Players] = useState(team1Players);
+  const [receivedTeam2Players, setReceivedTeam2Players] = useState(team2Players);
   // Below code required independent research, to dynmically create and manage end input fields on clicking a button
   const [ends, setEnds] = useState([]);
   const [endID, setEndID] = useState(2);
@@ -165,24 +171,23 @@ const ScorecardEndScreen = ({navigation, route}) => {
         })}
         <Button onPress={showAllEnds} title='Show ends' />
         <Button onPress={handleNewEndClick} title='Add another end' />
-        <NavigationButton color='blue' message='Cancel' screenName='Home' navigation={navigation} />
         <Button title='Next' onPress={() => {
           console.log('THIS IS WHAT IT LOOKS LIKE: ' + ends[ends.length-1].team1Score.toString());
           console.log([ends[ends.length-1].team1Score].toString());
           const id = Math.floor(Math.random() * 99999);
           const match = { 
-              dateTime: dateTime,
-              title: competitionName,
-              rinkNumber: rinkNumber
+              dateTime: receivedDateTime,
+              title: receivedCompetitionName,
+              rinkNumber: receivedRinkNumber
           };
           const teams = {
               team1: {
-                team1Name: team1Name,
-                players: team1Players
+                team1Name: receivedTeam1Name,
+                players: receivedTeam1Players
               },
               team2: {
-                team2Name: team2Name,
-                players: team2Players
+                team2Name: receivedTeam2Name,
+                players: receivedTeam2Players
               },
               scores: ends,
               finalscore: {
