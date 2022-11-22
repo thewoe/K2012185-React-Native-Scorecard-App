@@ -43,12 +43,12 @@ const ScorecardEndScreen = ({navigation, route}) => {
   };
 
   const handleTeam1EndTextInput = (input, id) => {
+    setTeam1Score(team1Score + parseInt(input));
     const endExists = ends.find(end => end.end === id);
     if (endExists) {
       console.log('End '+id+' exists and team1Shots: '+input);
       const updateEnd = ends.map(end => {
         if (end.end === id) {
-          setTeam1Score(team1Score + parseInt(input));
           return { 
             ...end,
             team1Shots: parseInt(input),
@@ -64,7 +64,6 @@ const ScorecardEndScreen = ({navigation, route}) => {
     }
     else {
       console.log('End '+id+' does not exist and team1Shots: '+input);
-      setTeam1Score(team1Score + parseInt(input));
       const newEnd = {
         end: id,
         team1Shots: parseInt(input),
@@ -78,12 +77,12 @@ const ScorecardEndScreen = ({navigation, route}) => {
   };
 
   const handleTeam2EndTextInput = (input, id) => {
+    setTeam2Score(team2Score + parseInt(input));
     const endExists = ends.find(end => end.end === id);
     if (endExists) {
       console.log('End '+id+' exists and team1Shots: '+input);
       const updateEnd = ends.map(end => {
         if (end.end === id) {
-          setTeam2Score(team2Score + parseInt(input));
           console.log('Team1Score: '+team1Score+' Team2Score: '+team2Score);
           return { 
             ...end,
@@ -100,7 +99,6 @@ const ScorecardEndScreen = ({navigation, route}) => {
     }
     else {
       console.log('End '+id+' does not exist and team1Shots: '+input);
-      setTeam2Score(team2Score + parseInt(input));
       const newEnd = {
         end: id,
         team1Shots: 0,
@@ -111,6 +109,10 @@ const ScorecardEndScreen = ({navigation, route}) => {
       };
       setEnds([...ends, newEnd]);
     }
+  };
+
+  const showAllEnds = () => {
+    ends.map((end) => console.log(end));
   };
 
   // const calculateTeam1Score = (shots) => {
@@ -142,10 +144,10 @@ const ScorecardEndScreen = ({navigation, route}) => {
                     style={styles.textInput}
                     placeholder={`${team1Name} shots`}
                     value={ends[item.end]}
-                    onChangeText={input => handleTeam1EndTextInput(input, item.end-1)}
+                    onChangeText={input => handleTeam1EndTextInput(input, item.end)}
                   />
                   <Text style={styles.textLabel}>TOTAL</Text>
-                  <Text style={styles.textLabel}>{(ends.length > 6) && ends[item.end-1].team1Score}</Text>
+                  <Text style={styles.textLabel}>{(ends.length > 0) && (item.end < ends.length) && ends[item.end-1].team1Score}</Text>
                   <Text style={styles.textLabel}>{team2Name}</Text>
                   <Text style={styles.textLabel}>SHOTS</Text>
                   <TextInput
@@ -153,15 +155,15 @@ const ScorecardEndScreen = ({navigation, route}) => {
                     style={styles.textInput}
                     placeholder={`${team2Name} shots`}
                     value={ends[item.end]}
-                    onChangeText={input => handleTeam2EndTextInput(input, item.end-1)}
+                    onChangeText={input => handleTeam2EndTextInput(input, item.end)}
                   />
                   <Text style={styles.textLabel}>TOTAL</Text>
-                  <Text style={styles.textLabel}>{(ends.length > 6) && ends[item.end-1].team2Score}</Text>
+                  <Text style={styles.textLabel}>{(ends.length > 0) && (item.end < ends.length) && ends[item.end-1].team2Score}</Text>
                   <NavigationButton color='green' message='Take Picture' screenName='EndCamera' navigation={navigation} data={{end: item.end}} />
-
                 </View>
             );
         })}
+        <Button onPress={showAllEnds} title='Show ends' />
         <Button onPress={handleNewEndClick} title='Add another end' />
         <NavigationButton color='blue' message='Cancel' screenName='Home' navigation={navigation} />
         <Button title='Next' onPress={() => {
