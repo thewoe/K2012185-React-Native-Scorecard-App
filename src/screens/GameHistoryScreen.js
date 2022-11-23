@@ -40,9 +40,7 @@ const GameHistoryScreen = ({navigation}) => {
                                         <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{`${item.teams.team2.team2Name}`}</Text>
                                             <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{`${item.teams.finalscore.team2Score}`}</Text>
                                         </View>
-                                        <Pressable onPress={() => navigation.navigate('EditItemScreen', {
-                                            id: item.id
-                                        })}>
+                                        <Pressable onPress={() => navigation.navigate('EditScorecard', { id: item.id })}>
                                             <MaterialIcons name='edit' size={38} color='red' />
                                         </Pressable>
                                         <Pressable onPress={() => remove(item.id)}>

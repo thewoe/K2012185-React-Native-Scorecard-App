@@ -8,6 +8,7 @@ import EndCameraScreen from '../screens/EndCameraScreen';
 import EndPhotoScreen from '../screens/EndPhotoScreen';
 import ViewEndPhotoScreen from '../screens/ViewEndPhotoScreen';
 import GameHistoryScreen from '../screens/GameHistoryScreen';
+import EditScorecardScreen from '../screens/EditScorecardScreen';
 
 // Below code required independent research, to create a nested navigator, i.e., a stack navigator for a screen indexed by the tab navigator
 
@@ -25,6 +26,7 @@ const NewGameNavigator = () => {
         <Stack.Screen name='EndCamera' component={EndCameraScreen} options={{ title: 'Take End Picture' }} />
         <Stack.Screen name='EndPhoto' component={EndPhotoScreen} options={{ title: 'View End Picture' }} />
         <Stack.Screen name='ViewEndPhoto' component={ViewEndPhotoScreen} options={{ title: 'View End Picture' }} />
+        <Stack.Screen name='EditScorecard' component={EditScorecardScreen} options={{ title: 'Edit Scorecard' }} />
       </Stack.Navigator>
     );
 };
