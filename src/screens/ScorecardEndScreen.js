@@ -49,7 +49,6 @@ const ScorecardEndScreen = ({navigation, route}) => {
   };
 
   const handleTeam1EndTextInput = (input, id) => {
-    setTeam1Score(team1Score + parseInt(input));
     const endExists = ends.find(end => end.end === id);
     if (endExists) {
       console.log('End '+id+' exists and team1Shots: '+input);
@@ -58,7 +57,7 @@ const ScorecardEndScreen = ({navigation, route}) => {
           return { 
             ...end,
             team1Shots: parseInt(input),
-            team1Score: team1Score,
+            team1Score: team1Score+parseInt(input),
             team2Shots: 0,
             team2Score: team2Score,
             imageUri: ''
@@ -73,17 +72,17 @@ const ScorecardEndScreen = ({navigation, route}) => {
       const newEnd = {
         end: id,
         team1Shots: parseInt(input),
-        team1Score: team1Score,
+        team1Score: team1Score+parseInt(input),
         team2Shots: 0,
         team2Score: team2Score,
         imageUri: ''
       };
       setEnds([...ends, newEnd]);
     }
+    setTeam1Score(team1Score + parseInt(input));
   };
 
   const handleTeam2EndTextInput = (input, id) => {
-    setTeam2Score(team2Score + parseInt(input));
     const endExists = ends.find(end => end.end === id);
     if (endExists) {
       console.log('End '+id+' exists and team1Shots: '+input);
@@ -95,7 +94,7 @@ const ScorecardEndScreen = ({navigation, route}) => {
             team1Shots: 0,
             team1Score: team1Score,
             team2Shots: parseInt(input),
-            team2Score: team2Score,
+            team2Score: team2Score+parseInt(input),
             imageUri: ''
           }
         }
@@ -110,11 +109,12 @@ const ScorecardEndScreen = ({navigation, route}) => {
         team1Shots: 0,
         team1Score: team1Score,
         team2Shots: parseInt(input),
-        team2Score: team2Score,
+        team2Score: team2Score+parseInt(input),
         imageUri: ''
       };
       setEnds([...ends, newEnd]);
     }
+    setTeam2Score(team2Score + parseInt(input));
   };
 
   const showAllEnds = () => {
