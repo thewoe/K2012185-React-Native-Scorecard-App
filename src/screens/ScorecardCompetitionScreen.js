@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ScrollView, Text, TextInput, Button, StyleSheet, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Picker } from '@react-native-picker/picker';
@@ -25,6 +25,14 @@ const ScorecardCompetitionScreen = ({navigation}) => {
     const showDatepicker = () => showMode('date');
     const showTimepicker = () => showMode('time');
     const hideMode = () => setShow(false);
+
+    useEffect(() => {const reset = navigation.addListener('focus',resetForm);}, [navigation]);
+
+    const resetForm = () => {
+        setCompetitionName('');
+        setDateTime(new Date());
+        setRinkNumber(0);
+    }
 
     // Below code required independent research, to create hide keyboard on user tapping away from the input field
     return (
@@ -92,6 +100,7 @@ const ScorecardCompetitionScreen = ({navigation}) => {
                     value={numberOfEnds}
                     onChangeText={input => setNumberOfEnds(input)}
                 /> */}
+                <Button title='Clear Input' onPress={resetForm} />
                 <NavigationButton color='blue' message='Next' screenName='ScorecardTeam' navigation={navigation} data={{
                     competitionName: competitionName,
                     dateTime: dateTime.toISOString(),

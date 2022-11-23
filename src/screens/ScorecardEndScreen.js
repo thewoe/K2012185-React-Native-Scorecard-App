@@ -23,6 +23,14 @@ const ScorecardEndScreen = ({navigation, route}) => {
   const [team1Score, setTeam1Score] = useState(0);
   const [team2Score, setTeam2Score] = useState(0);
 
+  const resetForm = () => {
+    setEnds([]);
+    setEndID(2);
+    setEndFields([{end: 1}]);
+    setTeam1Score(0);
+    setTeam2Score(0);
+  };
+
   const handleReturnedImage = () => {
     if (image) {
       const addImage = ends.map(end => {
@@ -159,6 +167,7 @@ const ScorecardEndScreen = ({navigation, route}) => {
             );
         })}
         <Button onPress={handleNewEndClick} title='Add another end' />
+        <Button title='Clear Input' onPress={resetForm} />
         <Button title='Next' onPress={() => {
           const id = Math.floor(Math.random() * 99999);
           const match = { 
