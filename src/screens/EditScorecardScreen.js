@@ -20,19 +20,28 @@ const EditScorecardScreen = ({route, navigation}) => {
     const [team2Name, setTeam2Name] = useState(item.teams.team2.team2Name);
     const [team1Players, setTeam1Players] = useState(item.teams.team1.players);
     const [team2Players, setTeam2Players] = useState(item.teams.team2.players);
-    const [team1PlayerID, setTeam1PlayerID] = useState(item.teams.team1.players.length);
-    const [team1PlayerFields, setTeam1PlayerFields] = useState(() => item.teams.team1.players.map((item) => [...team1PlayerFields, {id: item.id}]));
-    const [team2PlayerID, setTeam2PlayerID] = useState(item.teams.team2.players.length);
-    const [team2PlayerFields, setTeam2PlayerFields] = useState(() => item.teams.team2.players.map((item) => [...team2PlayerFields, {id: item.id}]));
+    const [team1PlayerID, setTeam1PlayerID] = useState(item.teams.team1.players.length+1);
+    const [team1PlayerFields, setTeam1PlayerFields] = useState(item.teams.team1.players);
+    const [team2PlayerID, setTeam2PlayerID] = useState(item.teams.team2.players.length+1);
+    const [team2PlayerFields, setTeam2PlayerFields] = useState(item.teams.team2.players);
     const [displayTeam1AddNewPlayer, setDisplayTeam1AddNewPlayer] = useState((item.teams.team1.players.length < 4) ? true : false);
     const [displayTeam2AddNewPlayer, setDisplayTeam2AddNewPlayer] = useState((item.teams.team2.players.length < 4) ? true : false);
     const [ends, setEnds] = useState(item.teams.scores);
     const [endID, setEndID] = useState(item.teams.scores.length);
-    const [endFields, setEndFields] = useState([{end: 1}]);
+    const [endFields, setEndFields] = useState(item.teams.scores);
     const [team1Score, setTeam1Score] = useState(0);
     const [team2Score, setTeam2Score] = useState(0);
-    
 
+    const updateEndScores = () => {
+        for (let i = 0; i < item.teams.scores.length; i++) {
+            setEndFields([...endFields, {
+                end: endID
+              }]);
+              setEndID(endID + 1);
+              console.log(endFields.length);
+        }
+    };
+    
     // Below code required independent research, to create a cross-platform datetime picker to select the match date and time
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
@@ -135,17 +144,15 @@ const EditScorecardScreen = ({route, navigation}) => {
         setEndID(endID + 1);
     };
     
-      const handleTeam1EndTextInput = (input, id) => {
-        setTeam1Score(team1Score + parseInt(input));
+    const handleTeam1EndTextInput = (input, id) => {
         const endExists = ends.find(end => end.end === id);
         if (endExists) {
-          console.log('End '+id+' exists and team1Shots: '+input);
           const updateEnd = ends.map(end => {
             if (end.end === id) {
               return { 
                 ...end,
-                team1Shots: parseInt(input),
-                team1Score: team1Score,
+                team1Shots: ((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
+                team1Score: team1Score+((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
                 team2Shots: 0,
                 team2Score: team2Score,
                 imageUri: ''
@@ -156,58 +163,59 @@ const EditScorecardScreen = ({route, navigation}) => {
           setEnds(updateEnd);
         }
         else {
-          console.log('End '+id+' does not exist and team1Shots: '+input);
           const newEnd = {
             end: id,
-            team1Shots: parseInt(input),
-            team1Score: team1Score,
+            team1Shots: ((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
+            team1Score: team1Score+((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
             team2Shots: 0,
             team2Score: team2Score,
             imageUri: ''
           };
           setEnds([...ends, newEnd]);
         }
-    };
+        setTeam1Score(team1Score + ((parseInt(input) !== 'NaN') ? parseInt(input) : 0));
+      };
     
-    const handleTeam2EndTextInput = (input, id) => {
-        setTeam2Score(team2Score + parseInt(input));
+      const handleTeam2EndTextInput = (input, id) => {
         const endExists = ends.find(end => end.end === id);
         if (endExists) {
-            console.log('End '+id+' exists and team1Shots: '+input);
-            const updateEnd = ends.map(end => {
+          const updateEnd = ends.map(end => {
             if (end.end === id) {
-                console.log('Team1Score: '+team1Score+' Team2Score: '+team2Score);
-                return { 
+              return { 
                 ...end,
                 team1Shots: 0,
                 team1Score: team1Score,
-                team2Shots: parseInt(input),
-                team2Score: team2Score,
+                team2Shots: ((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
+                team2Score: team2Score+((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
                 imageUri: ''
-                }
+              }
             }
             return end;
-            });
-            setEnds(updateEnd);
+          });
+          setEnds(updateEnd);
         }
         else {
-            console.log('End '+id+' does not exist and team1Shots: '+input);
-            const newEnd = {
+          const newEnd = {
             end: id,
             team1Shots: 0,
             team1Score: team1Score,
-            team2Shots: parseInt(input),
-            team2Score: team2Score,
+            team2Shots: ((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
+            team2Score: team2Score+((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
             imageUri: ''
-            };
-            setEnds([...ends, newEnd]);
+          };
+          setEnds([...ends, newEnd]);
         }
-    };
+        setTeam2Score(team2Score + ((parseInt(input) !== 'NaN') ? parseInt(input) : 0));
+      };
+    
     
     const showAllEnds = () => {
         ends.map((end) => console.log(end));
     };
 
+    console.log('End fields length: '+endFields.length);
+    console.log('Team 1 fields length: '+team1PlayerFields.length);
+    console.log('Team 2 fields length: '+team2PlayerFields.length);
     return (
         <SafeAreaView>
             <ScrollView keyboardDismissMode='on-drag'>
@@ -261,7 +269,7 @@ const EditScorecardScreen = ({route, navigation}) => {
                             <TextInput
                                 style={styles.textInput}
                                 placeholder='Type team 1 player name here'
-                                value={team1Players[item.id]}
+                                value={team1Players[item.id-1].name}
                                 onChangeText={input => handleTeam1PlayerTextInput(input, item.id)}
                             />
                         </View>
@@ -283,7 +291,7 @@ const EditScorecardScreen = ({route, navigation}) => {
                             <TextInput
                                 style={styles.textInput}
                                 placeholder='Type team 2 player name here'
-                                value={team2Players[item.id]}
+                                value={team2Players[item.id-1].name}
                                 onChangeText={input => handleTeam2PlayerTextInput(input, item.id)}
                             />
                         </View>
@@ -292,6 +300,7 @@ const EditScorecardScreen = ({route, navigation}) => {
                 { displayTeam2AddNewPlayer && <Button onPress={handleNewTeam2PlayerClick} title='Add another Team 2 player' /> }
                 <SectionBreak headerTitle='Ends' />
                 {endFields.map((item) => {
+                    console.log(ends[item.end-1].team1Shots);
                         return (
                             <View key={item.end}>
                             <Text style={styles.textLabel}>{`End ${item.end}`}</Text>
@@ -301,23 +310,18 @@ const EditScorecardScreen = ({route, navigation}) => {
                                 keyboardType='number-pad'
                                 style={styles.textInput}
                                 placeholder={`${team1Name} shots`}
-                                value={ends[item.end]}
+                                value={ends[item.end-1].team1Shots.toString()}
                                 onChangeText={input => handleTeam1EndTextInput(input, item.end)}
                             />
-                            <Text style={styles.textLabel}>TOTAL</Text>
-                            <Text style={styles.textLabel}>{(ends.length > 0) && (item.end < ends.length) && ends[item.end-1].team1Score}</Text>
                             <Text style={styles.textLabel}>{team2Name}</Text>
                             <Text style={styles.textLabel}>SHOTS</Text>
                             <TextInput
                                 keyboardType='number-pad'
                                 style={styles.textInput}
                                 placeholder={`${team2Name} shots`}
-                                value={ends[item.end]}
+                                value={ends[item.end-1].team2Shots.toString()}
                                 onChangeText={input => handleTeam2EndTextInput(input, item.end)}
                             />
-                            <Text style={styles.textLabel}>TOTAL</Text>
-                            <Text style={styles.textLabel}>{(ends.length > 0) && (item.end < ends.length) && ends[item.end-1].team2Score}</Text>
-                            <NavigationButton color='green' message='Take Picture' screenName='EndCamera' navigation={navigation} data={{end: item.end}} />
                             </View>
                         );
                     })}
@@ -341,9 +345,9 @@ const EditScorecardScreen = ({route, navigation}) => {
                     },
                     scores: ends,
                     finalscore: {
-                        team1Score: ends[ends.length-1].team1Score.toString(),
-                        team2Score: ends[ends.length-1].team2Score.toString(),
-                        winner: (ends[ends.length-1].team1Score > ends[ends.length-1].team2Score) ? "team1" : "team2"
+                        team1Score: ((ends.length > 0) ? ends[ends.length-1].team1Score.toString() : 'N/A'),
+                        team2Score: ((ends.length > 0) ? ends[ends.length-1].team2Score.toString() : 'N/A'),
+                        winner: ((ends.length > 0) ? ((ends[ends.length-1].team1Score > ends[ends.length-1].team2Score) ? "team1" : "team2") : 'N/A')
                     }
                 };
                 update(id, match, teams, navigation.navigate('GameComplete', {id: id}));
