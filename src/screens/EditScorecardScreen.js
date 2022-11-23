@@ -27,19 +27,24 @@ const EditScorecardScreen = ({route, navigation}) => {
     const [displayTeam1AddNewPlayer, setDisplayTeam1AddNewPlayer] = useState((item.teams.team1.players.length < 4) ? true : false);
     const [displayTeam2AddNewPlayer, setDisplayTeam2AddNewPlayer] = useState((item.teams.team2.players.length < 4) ? true : false);
     const [ends, setEnds] = useState(item.teams.scores);
-    const [endID, setEndID] = useState(item.teams.scores.length);
+    const [endID, setEndID] = useState(item.teams.scores.length+1);
     const [endFields, setEndFields] = useState(item.teams.scores);
     const [team1Score, setTeam1Score] = useState(0);
     const [team2Score, setTeam2Score] = useState(0);
 
     const updateEndScores = () => {
-        for (let i = 0; i < item.teams.scores.length; i++) {
-            setEndFields([...endFields, {
-                end: endID
-              }]);
-              setEndID(endID + 1);
-              console.log(endFields.length);
-        }
+        let accumulativeTeam1Score = 0;
+        let accumulativeTeam2Score = 0;
+        const updateScores = ends.map(end => {
+            accumulativeTeam1Score += end.team1Shots;
+            accumulativeTeam2Score += end.team2Shots;
+            return { 
+                ...end, 
+                team1Score: accumulativeTeam1Score,
+                team2Score: accumulativeTeam2Score
+            }
+        });
+        setEnds(updateScores);
     };
     
     // Below code required independent research, to create a cross-platform datetime picker to select the match date and time
@@ -173,7 +178,7 @@ const EditScorecardScreen = ({route, navigation}) => {
           };
           setEnds([...ends, newEnd]);
         }
-        setTeam1Score(team1Score + ((parseInt(input) !== 'NaN') ? parseInt(input) : 0));
+        //updateEndScores();
       };
     
       const handleTeam2EndTextInput = (input, id) => {
@@ -205,7 +210,7 @@ const EditScorecardScreen = ({route, navigation}) => {
           };
           setEnds([...ends, newEnd]);
         }
-        setTeam2Score(team2Score + ((parseInt(input) !== 'NaN') ? parseInt(input) : 0));
+        //updateEndScores();
       };
     
     
@@ -309,8 +314,8 @@ const EditScorecardScreen = ({route, navigation}) => {
                             <TextInput
                                 keyboardType='number-pad'
                                 style={styles.textInput}
-                                placeholder={`${team1Name} shots`}
-                                value={ends[item.end-1].team1Shots.toString()}
+                                placeholder={ends[item.end-1].team1Shots.toString()}
+                                value={ends[item.end-1].team1Shots}
                                 onChangeText={input => handleTeam1EndTextInput(input, item.end)}
                             />
                             <Text style={styles.textLabel}>{team2Name}</Text>
@@ -318,39 +323,40 @@ const EditScorecardScreen = ({route, navigation}) => {
                             <TextInput
                                 keyboardType='number-pad'
                                 style={styles.textInput}
-                                placeholder={`${team2Name} shots`}
-                                value={ends[item.end-1].team2Shots.toString()}
+                                placeholder={ends[item.end-1].team2Shots.toString()}
+                                value={ends[item.end-1].team2Shots}
                                 onChangeText={input => handleTeam2EndTextInput(input, item.end)}
                             />
                             </View>
                         );
                     })}
-                <Button onPress={showAllEnds} title='Show ends' />
                 <Button onPress={handleNewEndClick} title='Add another end' />
+                <Button onPress={updateEndScores} title='Update end scores' />
                 <SectionBreak headerTitle='Save Changes' />
                 <Button title='Save Changes' onPress={() => {
-                const match = { 
-                    dateTime: dateTime,
-                    title: competitionName,
-                    rinkNumber: rinkNumber
-                };
-                const teams = {
-                    team1: {
-                        team1Name: team1Name,
-                        players: team1Players
-                    },
-                    team2: {
-                        team2Name: team2Name,
-                        players: team2Players
-                    },
-                    scores: ends,
-                    finalscore: {
-                        team1Score: ((ends.length > 0) ? ends[ends.length-1].team1Score.toString() : 'N/A'),
-                        team2Score: ((ends.length > 0) ? ends[ends.length-1].team2Score.toString() : 'N/A'),
-                        winner: ((ends.length > 0) ? ((ends[ends.length-1].team1Score > ends[ends.length-1].team2Score) ? "team1" : "team2") : 'N/A')
-                    }
-                };
-                update(id, match, teams, navigation.navigate('GameComplete', {id: id}));
+                    updateEndScores();
+                    const match = { 
+                        dateTime: dateTime,
+                        title: competitionName,
+                        rinkNumber: rinkNumber
+                    };
+                    const teams = {
+                        team1: {
+                            team1Name: team1Name,
+                            players: team1Players
+                        },
+                        team2: {
+                            team2Name: team2Name,
+                            players: team2Players
+                        },
+                        scores: ends,
+                        finalscore: {
+                            team1Score: ((ends.length > 0) ? ends[ends.length-1].team1Score.toString() : 'N/A'),
+                            team2Score: ((ends.length > 0) ? ends[ends.length-1].team2Score.toString() : 'N/A'),
+                            winner: ((ends.length > 0) ? ((ends[ends.length-1].team1Score > ends[ends.length-1].team2Score) ? "team1" : "team2") : 'N/A')
+                        }
+                    };
+                    update(id, match, teams, navigation.navigate('GameComplete', {id: id}));
             }} />
             </ScrollView>
         </SafeAreaView>
