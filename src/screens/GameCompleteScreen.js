@@ -73,25 +73,27 @@ const GameCompleteScreen = ({route, navigation}) => {
                     }
                 />
                 <SectionBreak headerTitle='Score History' />
-                <FlatList
-                    scrollEnabled={false}
-                    data={item.teams.scores}
-                    keyExtractor={(item) => item.end.toString()}
-                    renderItem={({item}) => {
-                        return (
-                            <View>
-                                <Text>{`End: ${item.end}`}</Text>
-                                <Text>{`Team 1 Shots: ${item.team1Shots}`}</Text>
-                                <Text>{`Team 1 Score: ${item.team1Score}`}</Text>
-                                <Text>{`Team 2 Shots: ${item.team2Shots}`}</Text>
-                                <Text>{`Team 2 Score: ${item.team2Score}`}</Text>
-                                <Text>{item.imageUri}</Text>
-                                {item.imageUri && <Pressable onPress={() => navigation.navigate('ViewEndPhoto', { uri: item.imageUri })}><Feather name="camera" size={24} color="black"/></Pressable>}
-                            </View>
-                        );
-                    }}
-                    ListFooterComponent={<Button color='blue' title='Done' onPress={() => navigation.navigate('GameHistory')} />}
-                />
+                { item.teams.scores &&
+                    <FlatList
+                        scrollEnabled={false}
+                        data={item.teams.scores}
+                        keyExtractor={(item) => item.end.toString()}
+                        renderItem={({item}) => {
+                            return (
+                                <View>
+                                    <Text>{`End: ${item.end}`}</Text>
+                                    <Text>{`Team 1 Shots: ${item.team1Shots}`}</Text>
+                                    <Text>{`Team 1 Score: ${item.team1Score}`}</Text>
+                                    <Text>{`Team 2 Shots: ${item.team2Shots}`}</Text>
+                                    <Text>{`Team 2 Score: ${item.team2Score}`}</Text>
+                                    <Text>{item.imageUri}</Text>
+                                    {item.imageUri && <Pressable onPress={() => navigation.navigate('ViewEndPhoto', { uri: item.imageUri })}><Feather name="camera" size={24} color="black"/></Pressable>}
+                                </View>
+                            );
+                        }}
+                    />
+                }
+                <Button color='blue' title='Done' onPress={() => navigation.navigate('GameHistory')} />
             </ScrollView>
         </SafeAreaView>
     );

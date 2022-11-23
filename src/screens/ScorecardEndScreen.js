@@ -41,7 +41,6 @@ const ScorecardEndScreen = ({navigation, route}) => {
   useEffect(() => handleReturnedImage(), [image]);
 
   const handleNewEndClick = () => {
-    console.log('End Field created with endID :' + endID);
     setEndFields([...endFields, {
       end: endID
     }]);
@@ -51,13 +50,12 @@ const ScorecardEndScreen = ({navigation, route}) => {
   const handleTeam1EndTextInput = (input, id) => {
     const endExists = ends.find(end => end.end === id);
     if (endExists) {
-      console.log('End '+id+' exists and team1Shots: '+input);
       const updateEnd = ends.map(end => {
         if (end.end === id) {
           return { 
             ...end,
-            team1Shots: parseInt(input),
-            team1Score: team1Score+parseInt(input),
+            team1Shots: ((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
+            team1Score: team1Score+((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
             team2Shots: 0,
             team2Score: team2Score,
             imageUri: ''
@@ -68,33 +66,30 @@ const ScorecardEndScreen = ({navigation, route}) => {
       setEnds(updateEnd);
     }
     else {
-      console.log('End '+id+' does not exist and team1Shots: '+input);
       const newEnd = {
         end: id,
-        team1Shots: parseInt(input),
-        team1Score: team1Score+parseInt(input),
+        team1Shots: ((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
+        team1Score: team1Score+((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
         team2Shots: 0,
         team2Score: team2Score,
         imageUri: ''
       };
       setEnds([...ends, newEnd]);
     }
-    setTeam1Score(team1Score + parseInt(input));
+    setTeam1Score(team1Score + ((parseInt(input) !== 'NaN') ? parseInt(input) : 0));
   };
 
   const handleTeam2EndTextInput = (input, id) => {
     const endExists = ends.find(end => end.end === id);
     if (endExists) {
-      console.log('End '+id+' exists and team1Shots: '+input);
       const updateEnd = ends.map(end => {
         if (end.end === id) {
-          console.log('Team1Score: '+team1Score+' Team2Score: '+team2Score);
           return { 
             ...end,
             team1Shots: 0,
             team1Score: team1Score,
-            team2Shots: parseInt(input),
-            team2Score: team2Score+parseInt(input),
+            team2Shots: ((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
+            team2Score: team2Score+((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
             imageUri: ''
           }
         }
@@ -103,22 +98,17 @@ const ScorecardEndScreen = ({navigation, route}) => {
       setEnds(updateEnd);
     }
     else {
-      console.log('End '+id+' does not exist and team1Shots: '+input);
       const newEnd = {
         end: id,
         team1Shots: 0,
         team1Score: team1Score,
-        team2Shots: parseInt(input),
-        team2Score: team2Score+parseInt(input),
+        team2Shots: ((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
+        team2Score: team2Score+((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
         imageUri: ''
       };
       setEnds([...ends, newEnd]);
     }
-    setTeam2Score(team2Score + parseInt(input));
-  };
-
-  const showAllEnds = () => {
-    ends.map((end) => console.log(end));
+    setTeam2Score(team2Score + ((parseInt(input) !== 'NaN') ? parseInt(input) : 0));
   };
 
   // const calculateTeam1Score = (shots) => {
@@ -139,7 +129,6 @@ const ScorecardEndScreen = ({navigation, route}) => {
     <SafeAreaView>
       <ScrollView keyboardDismissMode='on-drag'>
         {endFields.map((item) => {
-          {console.log(ends[item.end])}
             return (
                 <View key={item.end}>
                   <Text style={styles.textLabel}>{`End ${item.end}`}</Text>
@@ -169,11 +158,8 @@ const ScorecardEndScreen = ({navigation, route}) => {
                 </View>
             );
         })}
-        <Button onPress={showAllEnds} title='Show ends' />
         <Button onPress={handleNewEndClick} title='Add another end' />
         <Button title='Next' onPress={() => {
-          console.log('THIS IS WHAT IT LOOKS LIKE: ' + ends[ends.length-1].team1Score.toString());
-          console.log([ends[ends.length-1].team1Score].toString());
           const id = Math.floor(Math.random() * 99999);
           const match = { 
               dateTime: receivedDateTime,
@@ -191,9 +177,9 @@ const ScorecardEndScreen = ({navigation, route}) => {
               },
               scores: ends,
               finalscore: {
-                team1Score: ends[ends.length-1].team1Score.toString(),
-                team2Score: ends[ends.length-1].team2Score.toString(),
-                winner: (ends[ends.length-1].team1Score > ends[ends.length-1].team2Score) ? "team1" : "team2"
+                team1Score: ((ends.length > 0) ? ends[ends.length-1].team1Score.toString() : 'N/A'),
+                team2Score: ((ends.length > 0) ? ends[ends.length-1].team2Score.toString() : 'N/A'),
+                winner: ((ends.length > 0) ? ((ends[ends.length-1].team1Score > ends[ends.length-1].team2Score) ? "team1" : "team2") : 'N/A')
               }
           };
           create(id, match, teams, navigation.navigate('GameComplete', {id: id}));
