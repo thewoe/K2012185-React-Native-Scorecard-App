@@ -15,83 +15,62 @@ const GameCompleteScreen = ({route, navigation}) => {
     });
     const item = foundItem[0];
     const winningScore = (item.teams.finalscore.winner === 'team1') ? item.teams.finalscore.team1Score : item.teams.finalscore.team2Score;
-    // console.log('ITEM TITLE' + item[0].match.title.toString());
     // Below code required independent research, to allow additional components to be placed in a FlatList, 
     // but only contained at the top of the FlatList (not repeated through each iteration)
     return (
         <SafeAreaView>
             <ScrollView>
-                <FlatList 
-                    ListHeaderComponent={() => {
-                        return (
-                            <View>
-                                <SectionBreak headerTitle='Winner' />
-                                <Text>And the winner is...</Text>
-                                <Text>{item.teams.finalscore.winner}</Text>
-                                <Text>{`Totalling ${winningScore} points`}</Text>
-                                <SectionBreak headerTitle='Game Information' />
-                                <SectionDetail title='Competition Name' details={item.match.title} />
-                                <SectionDetail title='Competition Date' details={new Date(item.match.dateTime).toLocaleString()} />
-                                <SectionDetail title='Rink Number' details={item.match.rinkNumber} />
-                                <SectionDetail title='Ends Played' details={item.teams.scores.length} />
-                                <SectionBreak headerTitle='Team Information' />
-                                <Text style={styles.teamName}>{item.teams.team1.team1Name}</Text>
-                                <Text style={styles.teamName}> vs. </Text>
-                                <Text style={styles.teamName}>{item.teams.team2.team2Name}</Text>
-                            </View>
-                        );
-                    }}
-                    scrollEnabled={false}
-                    data={item.teams.team1.players} 
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({item}) => {
-                        return (
-                            <View>
-                                { 
-                                    (item.id === 1) 
-                                        ? <Text>Skip: <Text>{item.name}</Text></Text> 
-                                        : <Text>{item.name}</Text>
-                                }
-                            </View>
-                        )}
-                    }
-                />
-                <FlatList 
-                    scrollEnabled={false}
-                    data={item.teams.team2.players} 
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({item}) => {
-                        return (
-                            <View>
-                                { 
-                                    (item.id === 1) 
-                                        ? <Text>Skip: <Text>{item.name}</Text></Text> 
-                                        : <Text>{item.name}</Text>
-                                }
-                            </View>
-                        )}
-                    }
-                />
+                <View>
+                    <SectionBreak headerTitle='Winner' />
+                    <Text>And the winner is...</Text>
+                    <Text>{(item.teams.finalscore.winner === 'team1') ? item.teams.team1.team1Name : item.teams.team2.team2Name}</Text>
+                    <Text>{`Totalling ${winningScore} Points`}</Text>
+                    <SectionBreak headerTitle='Game Information' />
+                    <SectionDetail title='Competition Name' details={item.match.title} />
+                    <SectionDetail title='Competition Date' details={new Date(item.match.dateTime).toLocaleString()} />
+                    <SectionDetail title='Rink Number' details={item.match.rinkNumber} />
+                    <SectionDetail title='Ends Played' details={item.teams.scores.length} />
+                    <SectionBreak headerTitle='Team Information' />
+                    <Text style={styles.teamName}>{item.teams.team1.team1Name}</Text>
+                    <Text style={styles.teamName}> vs. </Text>
+                    <Text style={styles.teamName}>{item.teams.team2.team2Name}</Text>
+                </View>
+                { item.teams.team1.players.map((item) => {
+                    return (
+                        <View key={item.id}>
+                            { 
+                                (item.id === 1) 
+                                    ? <Text>Skip: <Text>{item.name}</Text></Text> 
+                                    : <Text>{item.name}</Text>
+                            }
+                        </View>
+                    )
+                })}
+                { item.teams.team2.players.map((item) => {
+                    return (
+                        <View key={item.id}>
+                            { 
+                                (item.id === 1) 
+                                    ? <Text>Skip: <Text>{item.name}</Text></Text> 
+                                    : <Text>{item.name}</Text>
+                            }
+                        </View>
+                    )
+                })}
                 <SectionBreak headerTitle='Score History' />
                 { item.teams.scores &&
-                    <FlatList
-                        scrollEnabled={false}
-                        data={item.teams.scores}
-                        keyExtractor={(item) => item.end.toString()}
-                        renderItem={({item}) => {
-                            return (
-                                <View>
-                                    <Text>{`End: ${item.end}`}</Text>
-                                    <Text>{`Team 1 Shots: ${item.team1Shots}`}</Text>
-                                    <Text>{`Team 1 Score: ${item.team1Score}`}</Text>
-                                    <Text>{`Team 2 Shots: ${item.team2Shots}`}</Text>
-                                    <Text>{`Team 2 Score: ${item.team2Score}`}</Text>
-                                    <Text>{item.imageUri}</Text>
-                                    {item.imageUri && <Pressable onPress={() => navigation.navigate('ViewEndPhoto', { uri: item.imageUri })}><Feather name="camera" size={24} color="black"/></Pressable>}
-                                </View>
-                            );
-                        }}
-                    />
+                    item.teams.scores.map((item) => {
+                        return (
+                            <View key={item.end}>
+                                <Text>{`End: ${item.end}`}</Text>
+                                <Text>{`Team 1 Shots: ${item.team1Shots}`}</Text>
+                                <Text>{`Team 1 Score: ${item.team1Score}`}</Text>
+                                <Text>{`Team 2 Shots: ${item.team2Shots}`}</Text>
+                                <Text>{`Team 2 Score: ${item.team2Score}`}</Text>
+                                {item.imageUri && <Pressable onPress={() => navigation.navigate('ViewEndPhoto', { uri: item.imageUri })}><Feather name="camera" size={24} color="black"/></Pressable>}
+                            </View>
+                        );
+                    })
                 }
                 <Button color='blue' title='Done' onPress={() => navigation.navigate('GameHistory')} />
             </ScrollView>
