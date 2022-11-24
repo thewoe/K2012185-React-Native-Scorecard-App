@@ -140,13 +140,6 @@ const EditScorecardScreen = ({ route, navigation }) => {
     
       useEffect(() => handleReturnedImage(), [image]);
     
-      const handleNewEndClick = () => {
-        setEndFields([...endFields, {
-          end: endID
-        }]);
-        setEndID(endID + 1);
-    };
-    
     const handleTeam1EndTextInput = (input, id) => {
         const endExists = ends.find(end => end.end === id);
         if (endExists) {
@@ -297,31 +290,33 @@ const EditScorecardScreen = ({ route, navigation }) => {
                 <SectionBreak headerTitle='Ends' />
                 <Text style={styles.helpMessage}>When editing scores for a team, only enter the shots value for the scoring team. The other team will automatically be awarded a score of 0.</Text>
                 {endFields.map((item) => {
-                        return (
-                            <View key={item.end}>
-                            <Text style={styles.textLabel}>{`End ${item.end}`}</Text>
-                            <Text style={styles.textLabel}>{team1Name}</Text>
-                            <Text style={styles.textLabel}>SHOTS</Text>
-                            <TextInput
-                                keyboardType='number-pad'
-                                style={styles.textInput}
-                                placeholder={ends[item.end-1].team1Shots.toString()}
-                                value={ends[item.end-1].team1Shots}
-                                onChangeText={input => handleTeam1EndTextInput(input, item.end)}
-                            />
-                            <Text style={styles.textLabel}>{team2Name}</Text>
-                            <Text style={styles.textLabel}>SHOTS</Text>
-                            <TextInput
-                                keyboardType='number-pad'
-                                style={styles.textInput}
-                                placeholder={ends[item.end-1].team2Shots.toString()}
-                                value={ends[item.end-1].team2Shots}
-                                onChangeText={input => handleTeam2EndTextInput(input, item.end)}
-                            />
+                    return (
+                        <View style={styles.endContainer} key={item.end}>
+                            <Text style={styles.endTextLabel}>{`End ${item.end}`}</Text>
+                            <View style={styles.scoreContainer}>
+                                <Text style={styles.textLabel}>{`${team1Name} Shots`}</Text>
+                                <Text style={styles.textLabel}>{`${team2Name} Shots`}</Text>
                             </View>
-                        );
-                    })}
-                <Button onPress={handleNewEndClick} title='Add another end' />
+                            <View style={styles.scoreContainer}>
+                                <TextInput
+                                    keyboardType='number-pad'
+                                    style={styles.textInputShots}
+                                    placeholder={ends[item.end-1].team1Shots.toString()}
+                                    value={ends[item.end-1].team1Shots}
+                                    onChangeText={input => handleTeam1EndTextInput(input, item.end)}
+                                />
+                                <TextInput
+                                    keyboardType='number-pad'
+                                    style={styles.textInputShots}
+                                    placeholder={ends[item.end-1].team2Shots.toString()}
+                                    value={ends[item.end-1].team2Shots}
+                                    onChangeText={input => handleTeam2EndTextInput(input, item.end)}
+                                />
+                            </View>
+                        </View>
+                    );
+                })}
+                <Text style={styles.helpMessage}>If you made changes to the end scores, please click the 'Update end scores' button below.</Text>
                 <Button onPress={updateEndScores} title='Update end scores' />
                 <SectionBreak headerTitle='Save Changes' />
                 <Button title='Save Changes' onPress={() => {
@@ -364,13 +359,23 @@ const styles = StyleSheet.create({
     helpMessage: {
         margin: 10,
         fontWeight: 'bold',
-        fontSize: 20,
-        color: 'red'
+        fontSize: 14,
+        color: 'red',
+        textAlign: 'center'
+    },
+    endContainer: {
+        borderBottomWidth: 1
     },
     textLabel: {
         margin: 10,
         fontWeight: 'bold',
         fontSize: 20
+    },
+    endTextLabel: {
+        margin: 10,
+        fontWeight: 'bold',
+        fontSize: 20,
+        textAlign: 'center'
     },
     textInput: {
         marginTop: 0,
@@ -381,11 +386,30 @@ const styles = StyleSheet.create({
         fontSize: 20,
         borderWidth: 1
     },
+    textInputShots: {
+        marginTop: 0,
+        marginBottom: 15,
+        marginLeft: 10,
+        marginRight: 10,
+        padding: 10,
+        fontSize: 20,
+        borderWidth: 1,
+        width: 50,
+        textAlign: 'center'
+    },
+    scoreContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        margin: 10,
+        marginTop: 0
+    },
     skip: {
         margin: 10,
         marginTop: 0,
         fontSize: 18
-    }
+    },
+    
 });
 
 export default EditScorecardScreen;

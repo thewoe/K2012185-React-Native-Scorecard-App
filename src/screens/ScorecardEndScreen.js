@@ -119,7 +119,7 @@ const ScorecardEndScreen = ({ route, navigation }) => {
         <Text style={styles.helpMessage}>When inputting scores for a team, only enter the shots value for the scoring team. The other team will automatically be awarded a score of 0.</Text>
         {endFields.map((item) => {
             return (
-                <View style={styles.endContainer} key={item.end}>
+                <View key={item.end}>
                   <SectionBreak headerTitle={`End ${item.end}`}/>
                   <View style={styles.scoreTeamHeaderContainer}>
                     <Text style={styles.teamName}>{team1Name}</Text>
@@ -195,7 +195,8 @@ const styles = StyleSheet.create({
     margin: 10,
     fontWeight: 'bold',
     fontSize: 14,
-    color: 'red'
+    color: 'red',
+    textAlign: 'center'
   },
   scoreTeamHeaderContainer: {
     flex: 1,
