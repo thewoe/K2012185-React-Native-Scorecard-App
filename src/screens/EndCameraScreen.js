@@ -5,18 +5,20 @@ import * as MediaLibrary from 'expo-media-library';
 
 const EndCameraScreen = ({ route, navigation }) => {
     const { end } = route.params;
+    let camera;
     const [hasCameraPermission, setHasCameraPermission] = useState(null);
 
     // Below code required independent research, to create save an image taken by the camera to the camera roll/photo gallery
     const [hasLibraryPermission, setHasLibraryPermission] = useState(null);
     const [cameraType, setCameraType] = useState(CameraType.back);
+
     const getPermission = async () => {
         const cameraStatus = await Camera.requestCameraPermissionsAsync();
         setHasCameraPermission(cameraStatus.status === 'granted');
         const libraryStatus = await MediaLibrary.requestPermissionsAsync();
         setHasLibraryPermission(libraryStatus.status === 'granted');
     };
-    let camera;
+
     const getPicture = async () => {
         if (camera) {
             const { uri } = await camera.takePictureAsync();
@@ -27,7 +29,9 @@ const EndCameraScreen = ({ route, navigation }) => {
 
     // Below code required independent research, to allow the camera mode to be toggled i.e., between back and front cameras
     const toggleCamera = () => setCameraType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
+
     useEffect(() => { getPermission(); }, []);
+    
     if (hasCameraPermission === null || hasLibraryPermission === null) return <Text>Awaiting Camera/Photo Library Permission</Text>
     if (!hasCameraPermission || !hasLibraryPermission) return <Text>{`${hasCameraPermission} ${hasLibraryPermission} Camera/Photo Library Access Denied!`}</Text>
 

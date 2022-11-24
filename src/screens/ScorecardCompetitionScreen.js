@@ -18,8 +18,11 @@ const ScorecardCompetitionScreen = ({ navigation }) => {
         setShow(true);
         setMode(currentMode);
     };
+
     const showDatepicker = () => showMode('date');
+
     const showTimepicker = () => showMode('time');
+
     const hideMode = () => setShow(false);
 
     useEffect(() => {const reset = navigation.addListener('focus', resetForm);}, [navigation]);
@@ -69,7 +72,7 @@ const ScorecardCompetitionScreen = ({ navigation }) => {
                 <NavigationButton color='' message='Next' screenName='ScorecardTeam' navigation={navigation} data={{
                     competitionName: competitionName,
                     dateTime: dateTime.toISOString(),
-                    rinkNumber: rinkNumber,
+                    rinkNumber: rinkNumber
                 }} />
             </ScrollView>
         </SafeAreaView>

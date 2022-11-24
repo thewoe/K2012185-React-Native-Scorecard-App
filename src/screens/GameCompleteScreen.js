@@ -1,10 +1,10 @@
 import { useContext } from 'react';
-import { ScrollView, View, Text, StyleSheet, FlatList, Pressable, Button } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Pressable, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Feather } from '@expo/vector-icons';
+import ItemContext from '../contexts/ItemContext';
 import SectionBreak from '../components/SectionBreak';
 import SectionDetail from '../components/SectionDetail';
-import ItemContext from '../contexts/ItemContext';
-import { Feather } from '@expo/vector-icons';
 
 const GameCompleteScreen = ({ route, navigation }) => {
     const { state } = useContext(ItemContext);
@@ -13,8 +13,9 @@ const GameCompleteScreen = ({ route, navigation }) => {
         if (game.id === id) return game;
     });
     const item = foundItem[0];
+
     const winningScore = (item.teams.finalscore.winner === 'team1') ? item.teams.finalscore.team1Score : item.teams.finalscore.team2Score;
-    //const numberOfPlayers = (item.teams.team1.player.length > item.teams.team2.player.length) ? item.teams.team1.player.length : item.teams.team2.player.length;
+
     // Below code required independent research, as FlatLists cannot be nested within other FlatLists or ScrollViews, so a map function was required
     return (
         <SafeAreaView>
@@ -37,7 +38,7 @@ const GameCompleteScreen = ({ route, navigation }) => {
                                 <View style={styles.team1Players} key={item.id}>
                                     <Text style={styles.player}>{item.name}</Text>
                                 </View>
-                            )
+                            );
                         })}
                     </View>
                     <View style={styles.vsContainer}>
@@ -52,7 +53,7 @@ const GameCompleteScreen = ({ route, navigation }) => {
                                     <View style={styles.team2Players} key={item.id}>
                                         <Text style={styles.player}>{item.name}</Text>
                                     </View>
-                                )
+                                );
                             })}
                         </View>
                     </View>
@@ -60,8 +61,8 @@ const GameCompleteScreen = ({ route, navigation }) => {
                 <SectionBreak headerTitle='Score History' />
                 <View>
                     <View style={styles.scoreTeamHeaderContainer}>
-                    <Text style={styles.teamName}>{item.teams.team1.team1Name}</Text>
-                    <Text style={styles.teamName}>{item.teams.team2.team2Name}</Text>
+                        <Text style={styles.teamName}>{item.teams.team1.team1Name}</Text>
+                        <Text style={styles.teamName}>{item.teams.team2.team2Name}</Text>
                     </View>
                     <View style={styles.scoreHeaderContainer}>
                         <Text style={styles.scoreHeader}>Shots</Text>

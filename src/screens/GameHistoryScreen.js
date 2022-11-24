@@ -1,20 +1,19 @@
-import { ScrollView, View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
+import { useContext } from 'react';
+import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import ItemContext from '../contexts/ItemContext';
-import { useContext } from 'react';
 
 const GameHistoryScreen = ({ navigation }) => {
     const { state, remove } = useContext(ItemContext);
     return (
         <SafeAreaView>
             <FlatList
-                scrollEnabled={false}
                 data={state}
                 keyExtractor={data => data.id.toString()}
-                renderItem={({item}) => {
+                renderItem={({ item }) => {
                     return (
-                        <Pressable onPress={() => navigation.navigate('GameComplete', {id: item.id})}>
+                        <Pressable onPress={() => navigation.navigate('GameComplete', { id: item.id })}>
                             <View style={styles.itemContainer}>
                                 <Text style={styles.matchTitleText}>{item.match.title}</Text>
                                 <View style={styles.contentContainer}>
@@ -34,7 +33,7 @@ const GameHistoryScreen = ({ navigation }) => {
                                         <Text style={styles.vsText}> vs </Text>
                                     </View>
                                     <View>
-                                    <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{`${item.teams.team2.team2Name}`}</Text>
+                                        <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{`${item.teams.team2.team2Name}`}</Text>
                                         <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{`${item.teams.finalscore.team2Score}`}</Text>
                                     </View>
                                     <Pressable onPress={() => navigation.navigate('EditScorecard', { id: item.id })}>
@@ -100,9 +99,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
         alignSelf: 'center'
-    },
-    itemContainer: {
-        
     }
 });
 

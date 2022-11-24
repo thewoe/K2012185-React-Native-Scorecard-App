@@ -1,10 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from './src/screens/HomeScreen';
+import { MaterialIcons, AntDesign, Entypo } from '@expo/vector-icons';
 import { GameHistoryNavigator } from './src/navigation/GameHistoryNavigator';
 import { NewGameNavigator } from './src/navigation/NewGameNavigator';
-import { MaterialIcons, AntDesign, Feather, Entypo } from '@expo/vector-icons';
 import { ItemProvider } from './src/contexts/ItemContext';
+import HomeScreen from './src/screens/HomeScreen';
 import HelpScreen from './src/screens/HelpScreen';
 
 // Below code required independent research, to create a nested navigator, i.e., a stack navigator for a screen indexed by the tab navigator

@@ -15,12 +15,12 @@ const Stack = createNativeStackNavigator();
 
 const NewGameNavigator = () => {
     return (
-      <Stack.Navigator initialRouteName='ScorecardCompetition' screenOptions={{labelStyle: {fontSize: 11}, activeTintColor: 'blue', inactiveTintColor: 'black'}}>
+      <Stack.Navigator initialRouteName='ScorecardCompetition'>
         <Stack.Screen name='GameHistory' component={GameHistoryScreen} options={{ title: 'Game History' }} />
         <Stack.Screen name='GameComplete' component={GameCompleteScreen} options={{ title: 'Game Complete' }} />
         <Stack.Screen name='ScorecardCompetition' component={ScorecardCompetitionScreen} options={{ title: 'New Scorecard' }} />
         <Stack.Screen name='ScorecardEnd' component={ScorecardEndScreen} options={{ title: 'New Scorecard' }} />
-        <Stack.Screen name='Help' component={HelpScreen} options={{ title: 'New Scorecard' }} />
+        <Stack.Screen name='Help' component={HelpScreen} options={{ title: 'Help' }} />
         <Stack.Screen name='ScorecardTeam' component={ScorecardTeamScreen} options={{ title: 'New Scorecard' }} />
         <Stack.Screen name='EndCamera' component={EndCameraScreen} options={{ title: 'Take End Picture' }} />
         <Stack.Screen name='EndPhoto' component={EndPhotoScreen} options={{ title: 'View End Picture' }} />

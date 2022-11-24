@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { View, Text, Button, ScrollView, StyleSheet } from 'react-native';
+import { Text, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SectionBreak from '../components/SectionBreak';
 
@@ -93,11 +92,11 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: 'center',
     fontWeight: 'bold'
-},
-content: {
+  },
+  content: {
     margin: 10,
     fontSize: 20
-},
+  }
 });
 
 export default HelpScreen;

@@ -15,35 +15,11 @@ const ScorecardTeamScreen = ({ route, navigation }) => {
     const [team1Players, setTeam1Players] = useState([]);
     const [team2Players, setTeam2Players] = useState([]);
     const [team1PlayerID, setTeam1PlayerID] = useState(2);
-    const [team1PlayerFields, setTeam1PlayerFields] = useState([{id: 1}]);
+    const [team1PlayerFields, setTeam1PlayerFields] = useState([{ id: 1 }]);
     const [team2PlayerID, setTeam2PlayerID] = useState(2);
-    const [team2PlayerFields, setTeam2PlayerFields] = useState([{id: 1}]);
+    const [team2PlayerFields, setTeam2PlayerFields] = useState([{ id: 1 }]);
     const [displayTeam1AddNewPlayer, setDisplayTeam1AddNewPlayer] = useState(true);
     const [displayTeam2AddNewPlayer, setDisplayTeam2AddNewPlayer] = useState(true);
-
-    const handleNewTeam1PlayerClick = () => {
-        if (team1PlayerFields.length <= 3) {
-            setTeam1PlayerFields([...team1PlayerFields, {
-            id: team1PlayerID,
-            }]);
-            setTeam1PlayerID(team1PlayerID + 1);
-        }
-        if (team1PlayerFields.length === 3) {
-            setDisplayTeam1AddNewPlayer(false);
-        }
-    };
-
-    const handleNewTeam2PlayerClick = () => {
-        if (team2PlayerFields.length <= 3) {
-            setTeam2PlayerFields([...team2PlayerFields, {
-            id: team2PlayerID,
-            }]);
-            setTeam2PlayerID(team2PlayerID + 1);
-        }
-        if (team2PlayerFields.length === 3) {
-            setDisplayTeam2AddNewPlayer(false);
-        }
-    };
 
     const handleTeam1PlayerTextInput = (input, id) => {
         const playerExists = team1Players.find(player => player.id === id);
@@ -85,10 +61,34 @@ const ScorecardTeamScreen = ({ route, navigation }) => {
         }
     };
 
+    const handleNewTeam1PlayerClick = () => {
+        if (team1PlayerFields.length <= 3) {
+            setTeam1PlayerFields([...team1PlayerFields, {
+            id: team1PlayerID
+            }]);
+            setTeam1PlayerID(team1PlayerID + 1);
+        }
+        if (team1PlayerFields.length === 3) {
+            setDisplayTeam1AddNewPlayer(false);
+        }
+    };
+
+    const handleNewTeam2PlayerClick = () => {
+        if (team2PlayerFields.length <= 3) {
+            setTeam2PlayerFields([...team2PlayerFields, {
+            id: team2PlayerID
+            }]);
+            setTeam2PlayerID(team2PlayerID + 1);
+        }
+        if (team2PlayerFields.length === 3) {
+            setDisplayTeam2AddNewPlayer(false);
+        }
+    };
+
     return (
         <SafeAreaView>
             <ScrollView keyboardDismissMode='on-drag'>
-            <Text style={styles.header}>Team Details</Text>
+                <Text style={styles.header}>Team Details</Text>
                 <Text style={styles.textLabel}>Enter Team 1's Name</Text>
                 <TextInput
                     style={styles.textInput}
@@ -97,7 +97,7 @@ const ScorecardTeamScreen = ({ route, navigation }) => {
                     onChangeText={input => setTeam1Name(input)}
                     autoFocus={true}
                 />
-                {team1PlayerFields.map((item) =>{
+                {team1PlayerFields.map((item) => {
                     return (
                         <View key={item.id}>
                             <Text style={styles.textLabel}>{`Enter Team 1 Player ${item.id}'s Name`}</Text>
@@ -119,7 +119,7 @@ const ScorecardTeamScreen = ({ route, navigation }) => {
                     value={team2Name}
                     onChangeText={input => setTeam2Name(input)}
                 />
-                {team2PlayerFields.map((item) =>{
+                {team2PlayerFields.map((item) => {
                     return (
                         <View key={item.id}>
                             <Text style={styles.textLabel}>{`Enter Team 2 Player ${item.id}'s Name`}</Text>
