@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ScrollView, View, Text, TextInput, FlatList, Button, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import NavigationButton from '../components/NavigationButton';
 

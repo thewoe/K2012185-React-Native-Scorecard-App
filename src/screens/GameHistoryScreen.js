@@ -9,7 +9,7 @@ const GameHistoryScreen = ({navigation}) => {
     const {state, remove, update} = useContext(ItemContext);
     return (
         <SafeAreaView>
-            <ScrollView>
+            <ScrollView horizontal={true}>
                 <FlatList
                     scrollEnabled={false}
                     data={state}

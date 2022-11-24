@@ -6,7 +6,6 @@ import NavigationButton from '../components/NavigationButton';
 
 const ScorecardEndScreen = ({navigation, route}) => {
   const { competitionName, dateTime, rinkNumber, team1Name, team2Name, team1Players, team2Players, image } = route.params;
-  //console.log(competitionName, dateTime, rinkNumber, team1Name, team2Name, team1Players, team2Players);
   const { create } = useContext(ItemContext);
   const [receivedCompetitionName, setReceivedCompetitionName] = useState(competitionName);
   const [receivedDateTime, setReceivedDateTime] = useState(dateTime);
@@ -118,20 +117,6 @@ const ScorecardEndScreen = ({navigation, route}) => {
     }
     setTeam2Score(team2Score + ((parseInt(input) !== 'NaN') ? parseInt(input) : 0));
   };
-
-  // const calculateTeam1Score = (shots) => {
-  //   console.log('Shots '+shots);
-  //   if (ends.length === 0) return 0;
-  //   let total = ends.reduce((accumulator, end) => accumulator + end.team1Score, 0);
-  //   total += shots;
-  //   console.log('Team 1 score total '+total)
-  //   return total;
-  // };
-
-  // const calculateTeam2Score = (shots) => {
-  //   if (ends.length === 0) return 0;
-  //   return parseInt((ends.reduce((totalScore, end) => totalScore + end.team2Shots) + shots));
-  // };
 
   return (
     <SafeAreaView>

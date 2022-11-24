@@ -9,9 +9,6 @@ const ScorecardCompetitionScreen = ({navigation}) => {
     const [competitionName, setCompetitionName] = useState('');
     const [dateTime, setDateTime] = useState(new Date());
     const [rinkNumber, setRinkNumber] = useState(0);
-    // const [team1NumberOfPlayers, setTeam1NumberOfPlayers] = useState(0);
-    // const [team2NumberOfPlayers, setTeam2NumberOfPlayers] = useState(0);
-    //const [numberOfEnds, setNumberOfEnds] = useState(0);
 
     // Below code required independent research, to create a cross-platform datetime picker to select the match date and time
     const [mode, setMode] = useState('date');
@@ -70,44 +67,10 @@ const ScorecardCompetitionScreen = ({navigation}) => {
                     value={rinkNumber}
                     onChangeText={input => setRinkNumber(input)}
                 />
-                {/* <Text style={styles.textLabel}>Select the number of players in Team 1</Text>
-                <Picker
-                    selectedValue={team1NumberOfPlayers}
-                    onValueChange={(value, index) =>
-                    setTeam1NumberOfPlayers(value)
-                }>
-                    <Picker.Item label="1" value={1} />
-                    <Picker.Item label="2" value={2} />
-                    <Picker.Item label="3" value={3} />
-                    <Picker.Item label="4" value={4} />
-                </Picker>
-                <Text style={styles.textLabel}>Select the number of players in Team 2</Text>
-                <Picker
-                    selectedValue={team2NumberOfPlayers}
-                    onValueChange={(value, index) =>
-                    setTeam2NumberOfPlayers(value)
-                }>
-                    <Picker.Item label="1" value={1} />
-                    <Picker.Item label="2" value={2} />
-                    <Picker.Item label="3" value={3} />
-                    <Picker.Item label="4" value={4} />
-                </Picker> */}
-                {/* <Text style={styles.textLabel}>Enter the number of ends</Text>
-                <TextInput
-                    style={styles.textInput}
-                    keyboardType='number-pad'
-                    placeholder='Type number of ends here'
-                    value={numberOfEnds}
-                    onChangeText={input => setNumberOfEnds(input)}
-                /> */}
-                <Button title='Clear Input' onPress={resetForm} />
                 <NavigationButton color='blue' message='Next' screenName='ScorecardTeam' navigation={navigation} data={{
                     competitionName: competitionName,
                     dateTime: dateTime.toISOString(),
                     rinkNumber: rinkNumber,
-                    // team1NumberOfPlayers: team1NumberOfPlayers,
-                    // team2NumberOfPlayers: team2NumberOfPlayers,
-                    //numberOfEnds: numberOfEnds
                 }} />
             </ScrollView>
         </SafeAreaView>
