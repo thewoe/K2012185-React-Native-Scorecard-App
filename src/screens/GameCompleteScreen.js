@@ -131,7 +131,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     vsContainer: {
-        alignSelf: 'top',
         alignItems: 'center',
         minWidth: 15,
     },

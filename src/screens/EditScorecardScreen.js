@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { ScrollView, View, Text, StyleSheet, Button, TextInput } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Button, TextInput, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ItemContext from '../contexts/ItemContext';
 import SectionBreak from '../components/SectionBreak';
@@ -23,8 +23,6 @@ const EditScorecardScreen = ({ route, navigation }) => {
     const [team1PlayerFields, setTeam1PlayerFields] = useState(item.teams.team1.players);
     const [team2PlayerID, setTeam2PlayerID] = useState(item.teams.team2.players.length+1);
     const [team2PlayerFields, setTeam2PlayerFields] = useState(item.teams.team2.players);
-    const [displayTeam1AddNewPlayer, setDisplayTeam1AddNewPlayer] = useState((item.teams.team1.players.length < 4) ? true : false);
-    const [displayTeam2AddNewPlayer, setDisplayTeam2AddNewPlayer] = useState((item.teams.team2.players.length < 4) ? true : false);
     const [ends, setEnds] = useState(item.teams.scores);
     const [endFields, setEndFields] = useState(item.teams.scores);
     const [team1Score, setTeam1Score] = useState(0);
@@ -79,30 +77,6 @@ const EditScorecardScreen = ({ route, navigation }) => {
                 name: input
             }
             setTeam2Players([...team2Players, newPlayer]);
-        }
-    };
-
-    const handleNewTeam1PlayerClick = () => {
-        if (team1PlayerFields.length <= 3) {
-            setTeam1PlayerFields([...team1PlayerFields, {
-            id: team1PlayerID
-            }]);
-            setTeam1PlayerID(team1PlayerID + 1);
-        }
-        if (team1PlayerFields.length === 3) {
-            setDisplayTeam1AddNewPlayer(false);
-        }
-    };
-
-    const handleNewTeam2PlayerClick = () => {
-        if (team2PlayerFields.length <= 3) {
-            setTeam2PlayerFields([...team2PlayerFields, {
-            id: team2PlayerID
-            }]);
-            setTeam2PlayerID(team2PlayerID + 1);
-        }
-        if (team2PlayerFields.length === 3) {
-            setDisplayTeam2AddNewPlayer(false);
         }
     };
     
@@ -196,9 +170,9 @@ const EditScorecardScreen = ({ route, navigation }) => {
                         onChangeText={input => setCompetitionName(input)}
                         autoFocus={true}
                     />
-                    <Text style={styles.textLabel}>Select the competition date and time</Text>
-                    <Button onPress={showDatepicker} title='Click to select date' />
-                    <Button onPress={showTimepicker} title='Click to select time' />
+                    { (Platform.OS !== 'android') && <Text style={styles.textLabel}>Select the competition date and time</Text> }
+                    { (Platform.OS !== 'android') && <Button onPress={showDatepicker} title='Click to select date' /> }
+                    { (Platform.OS !== 'android') && <Button onPress={showTimepicker} title='Click to select time' /> }
                     {show && (
                         <DateTimePicker
                             display='spinner'
@@ -243,7 +217,6 @@ const EditScorecardScreen = ({ route, navigation }) => {
                             </View>
                         );
                     })}
-                    { displayTeam1AddNewPlayer && <Button onPress={handleNewTeam1PlayerClick} title='Add another Team 1 player' /> }
                     <Text style={styles.textLabel}>Enter Team 2's Name</Text>
                     <TextInput
                         style={styles.textInput}
@@ -265,7 +238,6 @@ const EditScorecardScreen = ({ route, navigation }) => {
                             </View>
                         );
                     })}
-                    { displayTeam2AddNewPlayer && <Button onPress={handleNewTeam2PlayerClick} title='Add another Team 2 player' /> }
                     <SectionBreak headerTitle='Ends' />
                     <Text style={styles.helpMessage}>When editing scores for a team, only enter the shots value for the scoring team. The other team will automatically be awarded a score of 0.</Text>
                     {endFields.map((item) => {

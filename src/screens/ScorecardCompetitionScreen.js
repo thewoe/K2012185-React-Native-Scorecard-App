@@ -15,7 +15,7 @@ const ScorecardCompetitionScreen = ({ navigation }) => {
 
     const showMode = (currentMode) => {
         if (Platform.OS === 'android') setShow(false);
-        setShow(true);
+        else setShow(true);
         setMode(currentMode);
     };
 
@@ -46,9 +46,9 @@ const ScorecardCompetitionScreen = ({ navigation }) => {
                     onChangeText={input => setCompetitionName(input)}
                     autoFocus={true}
                 />
-                <Text style={styles.textLabel}>Select the competition date and time</Text>
-                <Button onPress={showDatepicker} title='Click to select date' />
-                <Button onPress={showTimepicker} title='Click to select time' />
+                { (Platform.OS !== 'android') && <Text style={styles.textLabel}>Select the competition date and time</Text> }
+                { (Platform.OS !== 'android') && <Button onPress={showDatepicker} title='Click to select date' /> }
+                { (Platform.OS !== 'android') && <Button onPress={showTimepicker} title='Click to select time' /> }
                 {show && (
                     <DateTimePicker
                         display='spinner'

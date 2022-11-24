@@ -14,7 +14,7 @@ const GameHistoryScreen = ({ navigation }) => {
                 renderItem={({ item }) => {
                     return (
                         <Pressable onPress={() => navigation.navigate('GameComplete', { id: item.id })}>
-                            <View style={styles.itemContainer}>
+                            <View>
                                 <Text style={styles.matchTitleText}>{item.match.title}</Text>
                                 <View style={styles.contentContainer}>
                                     <View style={styles.dateContainer}>
