@@ -90,8 +90,7 @@ const EditScorecardScreen = ({ route, navigation }) => {
                 team1Shots: ((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
                 team1Score: team1Score+((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
                 team2Shots: 0,
-                team2Score: team2Score,
-                imageUri: ''
+                team2Score: team2Score
               }
             }
             return end;
@@ -121,8 +120,7 @@ const EditScorecardScreen = ({ route, navigation }) => {
                 team1Shots: 0,
                 team1Score: team1Score,
                 team2Shots: ((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
-                team2Score: team2Score+((parseInt(input) !== 'NaN') ? parseInt(input) : 0),
-                imageUri: ''
+                team2Score: team2Score+((parseInt(input) !== 'NaN') ? parseInt(input) : 0)
               }
             }
             return end;
