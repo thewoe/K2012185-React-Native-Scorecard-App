@@ -35,10 +35,10 @@ const EndCameraScreen = ({ route, navigation }) => {
     return (
         <View style={styles.container}>
             <Camera style={styles.subContainer} ref={ref => camera = ref} type={cameraType} flashMode={FlashMode.auto}>
-                <Pressable style={styles.buttonStyle} onPress={() => getPicture()}>
+                <Pressable style={styles.buttonTakePicture} onPress={() => getPicture()}>
                     <Text style={styles.textStyle}>Take Picture!</Text>
                 </Pressable>
-                <Pressable style={styles.buttonStyle} onPress={toggleCamera}>
+                <Pressable style={styles.buttonToggleCamera} onPress={toggleCamera}>
                     <Text style={styles.textStyle}>Change Camera</Text>
                 </Pressable>
             </Camera>
@@ -56,14 +56,21 @@ const styles = StyleSheet.create({
         flexDirection: 'row-reverse',
         alignItems: 'flex-end'
     },
-    buttonStyle: {
+    buttonTakePicture: {
         flex: 0.3,
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'green'
+    },
+    buttonToggleCamera: {
+        flex: 0.3,
+        alignItems: 'center',
+        backgroundColor: 'blue'
     },
     textStyle: {
         fontSize: 24,
         marginBottom: 15,
-        color: 'yellow'
+        color: 'white',
+        textAlign: 'center'
     }
 });
 

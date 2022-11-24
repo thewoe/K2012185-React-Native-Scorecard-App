@@ -8,7 +8,7 @@ const GameHistoryScreen = ({ navigation }) => {
     const { state, remove } = useContext(ItemContext);
     return (
         <SafeAreaView>
-            <ScrollView horizontal={true}>
+            <ScrollView horizontal={false}>
                 <FlatList
                     scrollEnabled={false}
                     data={state}
@@ -39,7 +39,7 @@ const GameHistoryScreen = ({ navigation }) => {
                                             <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{`${item.teams.finalscore.team2Score}`}</Text>
                                         </View>
                                         <Pressable onPress={() => navigation.navigate('EditScorecard', { id: item.id })}>
-                                            <MaterialIcons name='edit' size={38} color='red' />
+                                            <MaterialIcons name='edit' size={38} color='blue' />
                                         </Pressable>
                                         <Pressable onPress={() => remove(item.id)}>
                                             <MaterialIcons name='delete' size={38} color='red' />
@@ -67,17 +67,19 @@ const styles = StyleSheet.create({
         marginTop: 0
     },
     dateContainer: {
-        alignItems: 'center'
+        alignItems: 'center',
+        width: 80
     },
     dateText: {
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: 'bold'
     },
     titleText: {
         fontSize: 16,
         paddingLeft: 15,
         flex: 1,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        width: 90
     },
     titleStyle: {
         fontSize: 16
@@ -87,11 +89,14 @@ const styles = StyleSheet.create({
         fontSize: 16,
         paddingLeft: 15,
         flex: 1,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        width: 90
     },
     vsContainer: {
         alignItems: 'center',
-        flex: 1
+        flex: 1,
+        flexWrap: 'wrap',
+        minWidth: 15
     },
     matchTitleText: {
         fontWeight: 'bold',

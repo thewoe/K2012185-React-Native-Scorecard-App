@@ -3,7 +3,7 @@ import GameHistoryScreen from '../screens/GameHistoryScreen';
 import GameCompleteScreen from '../screens/GameCompleteScreen';
 import ScorecardCompetitionScreen from '../screens/ScorecardCompetitionScreen';
 import ScorecardEndScreen from '../screens/ScorecardEndScreen';
-import ScorecardScoresScreen from '../screens/ScorecardScoresScreen';
+import HelpScreen from '../screens/HelpScreen';
 import ScorecardTeamScreen from '../screens/ScorecardTeamScreen';
 import EndCameraScreen from '../screens/EndCameraScreen';
 import EndPhotoScreen from '../screens/EndPhotoScreen';
@@ -20,7 +20,7 @@ const GameHistoryNavigator = () => {
         <Stack.Screen name='GameComplete' component={GameCompleteScreen} options={{ title: 'Game Complete' }} />
         <Stack.Screen name='ScorecardCompetition' component={ScorecardCompetitionScreen} options={{ title: 'Edit Scorecard' }} />
         <Stack.Screen name='ScorecardEnd' component={ScorecardEndScreen} options={{ title: 'Edit Scorecard' }} />
-        <Stack.Screen name='ScorecardScores' component={ScorecardScoresScreen} options={{ title: 'Edit Scorecard' }} />
+        <Stack.Screen name='Help' component={HelpScreen} options={{ title: 'Edit Scorecard' }} />
         <Stack.Screen name='ScorecardTeam' component={ScorecardTeamScreen} options={{ title: 'Edit Scorecard' }} />
         <Stack.Screen name='EndCamera' component={EndCameraScreen} options={{ title: 'Take End Picture' }} />
         <Stack.Screen name='EndPhoto' component={EndPhotoScreen} options={{ title: 'View End Picture' }} />

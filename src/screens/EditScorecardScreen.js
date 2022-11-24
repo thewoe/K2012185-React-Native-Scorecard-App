@@ -214,6 +214,7 @@ const EditScorecardScreen = ({ route, navigation }) => {
     return (
         <SafeAreaView>
             <ScrollView keyboardDismissMode='on-drag'>
+            <Text style={styles.header}>Edit Scorecard</Text>
                 <SectionBreak headerTitle='Competition' />
                 <Text style={styles.textLabel}>Enter the competition name:</Text>
                 <TextInput
@@ -260,7 +261,7 @@ const EditScorecardScreen = ({ route, navigation }) => {
                     return (
                         <View key={item.id}>
                             <Text style={styles.textLabel}>{`Enter Player ${item.id}'s Name`}</Text>
-                            { (item.id === 1) && <Text>This player is Team 1's skip</Text> }
+                            { (item.id === 1) && <Text style={styles.skip}>This player is Team 1's skip</Text> }
                             <TextInput
                                 style={styles.textInput}
                                 placeholder='Type team 1 player name here'
@@ -282,7 +283,7 @@ const EditScorecardScreen = ({ route, navigation }) => {
                     return (
                         <View key={item.id}>
                             <Text style={styles.textLabel}>{`Enter Player ${item.id}'s Name`}</Text>
-                            { (item.id === 1) && <Text>This player is Team 2's skip</Text> }
+                            { (item.id === 1) && <Text style={styles.skip}>This player is Team 2's skip</Text> }
                             <TextInput
                                 style={styles.textInput}
                                 placeholder='Type team 2 player name here'
@@ -353,7 +354,31 @@ const EditScorecardScreen = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-    
+    header: {
+        marginBottom: 20,
+        fontSize: 25,
+        textAlign: 'center',
+        fontWeight: 'bold'
+    },
+    textLabel: {
+        margin: 10,
+        fontWeight: 'bold',
+        fontSize: 20
+    },
+    textInput: {
+        marginTop: 0,
+        marginBottom: 15,
+        marginLeft: 10,
+        marginRight: 10,
+        padding: 10,
+        fontSize: 20,
+        borderWidth: 1
+    },
+    skip: {
+        margin: 10,
+        marginTop: 0,
+        fontSize: 18
+    }
 });
 
 export default EditScorecardScreen;

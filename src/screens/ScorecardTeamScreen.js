@@ -88,10 +88,11 @@ const ScorecardTeamScreen = ({ route, navigation }) => {
     return (
         <SafeAreaView>
             <ScrollView keyboardDismissMode='on-drag'>
-                <Text style={styles.textLabel}>Enter Team 1's Name:</Text>
+            <Text style={styles.header}>Team Details</Text>
+                <Text style={styles.textLabel}>Enter Team 1's Name</Text>
                 <TextInput
                     style={styles.textInput}
-                    placeholder='Type Team 1 name here'
+                    placeholder='Type team 1 name here'
                     value={team1Name}
                     onChangeText={input => setTeam1Name(input)}
                     autoFocus={true}
@@ -99,8 +100,8 @@ const ScorecardTeamScreen = ({ route, navigation }) => {
                 {team1PlayerFields.map((item) =>{
                     return (
                         <View key={item.id}>
-                            <Text style={styles.textLabel}>{`Enter Player ${item.id}'s Name`}</Text>
-                            { (item.id === 1) && <Text>This player is Team 1's skip</Text> }
+                            <Text style={styles.textLabel}>{`Enter Team 1 Player ${item.id}'s Name`}</Text>
+                            { (item.id === 1) && <Text style={styles.skip}>This player is Team 1's skip</Text> }
                             <TextInput
                                 style={styles.textInput}
                                 placeholder='Type team 1 player name here'
@@ -110,19 +111,19 @@ const ScorecardTeamScreen = ({ route, navigation }) => {
                         </View>
                     );
                 })}
-                { displayTeam1AddNewPlayer && <Button onPress={handleNewTeam1PlayerClick} title='Add another Team 1 player' /> }
-                <Text style={styles.textLabel}>Enter Team 2's Name:</Text>
+                { displayTeam1AddNewPlayer && <Button onPress={handleNewTeam1PlayerClick} title='Add another team 1 player' /> }
+                <Text style={styles.textLabel}>Enter Team 2's Name</Text>
                 <TextInput
                     style={styles.textInput}
-                    placeholder='Type Team 2 name here'
+                    placeholder='Type team 2 name here'
                     value={team2Name}
                     onChangeText={input => setTeam2Name(input)}
                 />
                 {team2PlayerFields.map((item) =>{
                     return (
                         <View key={item.id}>
-                            <Text style={styles.textLabel}>{`Enter Player ${item.id}'s Name`}</Text>
-                            { (item.id === 1) && <Text>This player is Team 2's skip</Text> }
+                            <Text style={styles.textLabel}>{`Enter Team 2 Player ${item.id}'s Name`}</Text>
+                            { (item.id === 1) && <Text style={styles.skip}>This player is Team 2's skip</Text> }
                             <TextInput
                                 style={styles.textInput}
                                 placeholder='Type team 2 player name here'
@@ -132,8 +133,8 @@ const ScorecardTeamScreen = ({ route, navigation }) => {
                         </View>
                     );
                 })}
-                { displayTeam2AddNewPlayer && <Button onPress={handleNewTeam2PlayerClick} title='Add another Team 2 player' /> }
-                <NavigationButton color='blue' message='Next' screenName='ScorecardEnd' navigation={navigation} data={{
+                { displayTeam2AddNewPlayer && <Button onPress={handleNewTeam2PlayerClick} title='Add another team 2 player' /> }
+                <NavigationButton color='' message='Next' screenName='ScorecardEnd' navigation={navigation} data={{
                     competitionName: receivedCompetitionName, 
                     dateTime: receivedDateTime, 
                     rinkNumber: receivedRinkNumber,
@@ -147,6 +148,32 @@ const ScorecardTeamScreen = ({ route, navigation }) => {
     );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    header: {
+        marginBottom: 20,
+        fontSize: 25,
+        textAlign: 'center',
+        fontWeight: 'bold'
+    },
+    textLabel: {
+        margin: 10,
+        fontWeight: 'bold',
+        fontSize: 20
+    },
+    textInput: {
+        marginTop: 0,
+        marginBottom: 15,
+        marginLeft: 10,
+        marginRight: 10,
+        padding: 10,
+        fontSize: 20,
+        borderWidth: 1
+    },
+    skip: {
+        margin: 10,
+        marginTop: 0,
+        fontSize: 18
+    }
+});
 
 export default ScorecardTeamScreen;

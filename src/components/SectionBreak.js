@@ -25,6 +25,8 @@ const styles = StyleSheet.create({
     },
     sectionHeader: {
         paddingHorizontal: 10,
+        fontWeight: 'bold',
+        fontSize: 22,
         textAlign: 'center'
     }
 });

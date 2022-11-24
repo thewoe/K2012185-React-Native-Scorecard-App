@@ -34,7 +34,8 @@ const ScorecardCompetitionScreen = ({ navigation }) => {
     return (
         <SafeAreaView>
             <ScrollView keyboardDismissMode='on-drag'>
-                <Text style={styles.textLabel}>Enter the competition name:</Text>
+                <Text style={styles.header}>Competition Details</Text>
+                <Text style={styles.textLabel}>Enter the competition name</Text>
                 <TextInput
                     style={styles.textInput}
                     placeholder='Type competition name here'
@@ -65,7 +66,7 @@ const ScorecardCompetitionScreen = ({ navigation }) => {
                     value={rinkNumber}
                     onChangeText={input => setRinkNumber(input)}
                 />
-                <NavigationButton color='blue' message='Next' screenName='ScorecardTeam' navigation={navigation} data={{
+                <NavigationButton color='' message='Next' screenName='ScorecardTeam' navigation={navigation} data={{
                     competitionName: competitionName,
                     dateTime: dateTime.toISOString(),
                     rinkNumber: rinkNumber,
@@ -75,6 +76,27 @@ const ScorecardCompetitionScreen = ({ navigation }) => {
     );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    header: {
+        marginBottom: 20,
+        fontSize: 25,
+        textAlign: 'center',
+        fontWeight: 'bold'
+    },
+    textLabel: {
+        margin: 10,
+        fontWeight: 'bold',
+        fontSize: 20
+    },
+    textInput: {
+        marginTop: 0,
+        marginBottom: 15,
+        marginLeft: 10,
+        marginRight: 10,
+        padding: 10,
+        fontSize: 20,
+        borderWidth: 1
+    }
+});
 
 export default ScorecardCompetitionScreen;
