@@ -11,7 +11,6 @@ let initialScorecardState = [];
 const reducer = (state, action) => {
     switch (action.type) {
         case actionTypes.create:
-            console.log(action.payload);
             return [
                 ...state,
                 {
@@ -78,7 +77,7 @@ const reducer = (state, action) => {
                         }
                     }
                 }
-            ]
+            ];
         default:
             return state;
     };

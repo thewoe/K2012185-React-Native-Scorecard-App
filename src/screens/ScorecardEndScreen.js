@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from 'react';
 import ItemContext from '../contexts/ItemContext';
 import NavigationButton from '../components/NavigationButton';
 
-const ScorecardEndScreen = ({navigation, route}) => {
+const ScorecardEndScreen = ({ route, navigation }) => {
   const { competitionName, dateTime, rinkNumber, team1Name, team2Name, team1Players, team2Players, image } = route.params;
   const { create } = useContext(ItemContext);
   const [receivedCompetitionName, setReceivedCompetitionName] = useState(competitionName);
@@ -14,6 +14,7 @@ const ScorecardEndScreen = ({navigation, route}) => {
   const [receivedTeam2Name, setReceivedTeam2Name] = useState(team2Name);
   const [receivedTeam1Players, setReceivedTeam1Players] = useState(team1Players);
   const [receivedTeam2Players, setReceivedTeam2Players] = useState(team2Players);
+
   // Below code required independent research, to dynmically create and manage end input fields on clicking a button
   const [ends, setEnds] = useState([]);
   const [endID, setEndID] = useState(2);
@@ -147,7 +148,7 @@ const ScorecardEndScreen = ({navigation, route}) => {
                   />
                   <Text style={styles.textLabel}>TOTAL</Text>
                   <Text style={styles.textLabel}>{(ends.length > 0) && (item.end < ends.length) && ends[item.end-1].team2Score}</Text>
-                  <NavigationButton color='green' message='Take Picture' screenName='EndCamera' navigation={navigation} data={{end: item.end}} />
+                  <NavigationButton color='green' message='Take Picture' screenName='EndCamera' navigation={navigation} data={{ end: item.end }} />
                 </View>
             );
         })}
@@ -176,7 +177,7 @@ const ScorecardEndScreen = ({navigation, route}) => {
                 winner: ((ends.length > 0) ? ((ends[ends.length-1].team1Score > ends[ends.length-1].team2Score) ? "team1" : "team2") : 'N/A')
               }
           };
-          create(id, match, teams, navigation.navigate('GameComplete', {id: id}));
+          create(id, match, teams, navigation.navigate('GameComplete', { id: id }));
         }} />
       </ScrollView>
     </SafeAreaView>

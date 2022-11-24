@@ -1,12 +1,11 @@
 import { ScrollView, View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
-//import { dummyData } from '../dummyData';
 import ItemContext from '../contexts/ItemContext';
 import { useContext } from 'react';
 
-const GameHistoryScreen = ({navigation}) => {
-    const {state, remove, update} = useContext(ItemContext);
+const GameHistoryScreen = ({ navigation }) => {
+    const { state, remove } = useContext(ItemContext);
     return (
         <SafeAreaView>
             <ScrollView horizontal={true}>
@@ -15,7 +14,6 @@ const GameHistoryScreen = ({navigation}) => {
                     data={state}
                     keyExtractor={data => data.id.toString()}
                     renderItem={({item}) => {
-                        console.log(item);
                         return (
                             <Pressable onPress={() => navigation.navigate('GameComplete', {id: item.id})}>
                                 <View style={styles.itemContainer}>

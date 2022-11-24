@@ -8,7 +8,7 @@ const NavigationButton = ({ color, message, screenName, navigation, data=null })
             onPress={() => navigation.navigate(screenName, data)}
         />
     );
-}
+};
 
 const styles = StyleSheet.create({
     homeButton: {

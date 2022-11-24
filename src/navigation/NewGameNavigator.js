@@ -11,7 +11,6 @@ import GameHistoryScreen from '../screens/GameHistoryScreen';
 import EditScorecardScreen from '../screens/EditScorecardScreen';
 
 // Below code required independent research, to create a nested navigator, i.e., a stack navigator for a screen indexed by the tab navigator
-
 const Stack = createNativeStackNavigator();
 
 const NewGameNavigator = () => {

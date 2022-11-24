@@ -15,7 +15,7 @@ const App = () => {
     <ItemProvider>
       <NavigationContainer>
         <Tab.Navigator initialRouteName='Home' screenOptions={{labelStyle: {fontSize: 11}, activeTintColor: 'blue', inactiveTintColor: 'black'}}>
-            <Tab.Screen name='Home' component={HomeScreen} options={{ title: 'Home', tabBarLabel: 'Home', tabBarIcon: () => (<MaterialIcons name='home' size={40} color='blue' />) }} />
+            <Tab.Screen name='Home' component={HomeScreen} options={{ title: 'Home', tabBarLabel: 'Home', tabBarIcon: () => (<MaterialIcons name='home' size={40} color='black' />) }} />
             <Tab.Screen name='GameHistory' component={GameHistoryNavigator} options={{ headerShown: false, title: 'Game History', tabBarLabel: 'Game History', tabBarIcon: () => (<AntDesign name='bars' size={40} color='black' />)}} />
             <Tab.Screen name='NewGame' component={NewGameNavigator} options={{ headerShown: false, title: 'New Game', tabBarLabel: 'New Game', tabBarIcon: () => (<AntDesign name='plus' size={40} color='black' />)}} />
             <Tab.Screen name='CurrentGame' component={ScorecardScoresScreen} options={{ title: 'Current Game', tabBarLabel: 'Current Game', tabBarIcon: () => (<Feather name='play' size={35} color='black' />)}} />
@@ -24,6 +24,6 @@ const App = () => {
       </NavigationContainer>
     </ItemProvider>
   );
-}
+};
 
 export default App;

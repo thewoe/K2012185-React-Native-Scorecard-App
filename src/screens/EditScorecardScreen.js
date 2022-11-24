@@ -3,9 +3,8 @@ import { ScrollView, View, Text, StyleSheet, Button, TextInput } from 'react-nat
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SectionBreak from '../components/SectionBreak';
 import ItemContext from '../contexts/ItemContext';
-import NavigationButton from '../components/NavigationButton';
 
-const EditScorecardScreen = ({route, navigation}) => {
+const EditScorecardScreen = ({ route, navigation }) => {
     const { state, update } = useContext(ItemContext);
     const { id, image } = route.params;
     const foundItem = state.filter(game => {
@@ -142,7 +141,6 @@ const EditScorecardScreen = ({route, navigation}) => {
       useEffect(() => handleReturnedImage(), [image]);
     
       const handleNewEndClick = () => {
-        console.log('End Field created with endID :' + endID);
         setEndFields([...endFields, {
           end: endID
         }]);
@@ -213,14 +211,6 @@ const EditScorecardScreen = ({route, navigation}) => {
         //updateEndScores();
       };
     
-    
-    const showAllEnds = () => {
-        ends.map((end) => console.log(end));
-    };
-
-    console.log('End fields length: '+endFields.length);
-    console.log('Team 1 fields length: '+team1PlayerFields.length);
-    console.log('Team 2 fields length: '+team2PlayerFields.length);
     return (
         <SafeAreaView>
             <ScrollView keyboardDismissMode='on-drag'>
@@ -305,7 +295,6 @@ const EditScorecardScreen = ({route, navigation}) => {
                 { displayTeam2AddNewPlayer && <Button onPress={handleNewTeam2PlayerClick} title='Add another Team 2 player' /> }
                 <SectionBreak headerTitle='Ends' />
                 {endFields.map((item) => {
-                    console.log(ends[item.end-1].team1Shots);
                         return (
                             <View key={item.end}>
                             <Text style={styles.textLabel}>{`End ${item.end}`}</Text>

@@ -4,10 +4,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import SectionBreak from '../components/SectionBreak';
 import SectionDetail from '../components/SectionDetail';
 import ItemContext from '../contexts/ItemContext';
-import NavigationButton from '../components/NavigationButton';
 import { Feather } from '@expo/vector-icons';
 
-const GameCompleteScreen = ({route, navigation}) => {
+const GameCompleteScreen = ({ route, navigation }) => {
     const { state } = useContext(ItemContext);
     const { id } = route.params;
     const foundItem = state.filter(game => {
@@ -15,8 +14,7 @@ const GameCompleteScreen = ({route, navigation}) => {
     });
     const item = foundItem[0];
     const winningScore = (item.teams.finalscore.winner === 'team1') ? item.teams.finalscore.team1Score : item.teams.finalscore.team2Score;
-    // Below code required independent research, to allow additional components to be placed in a FlatList, 
-    // but only contained at the top of the FlatList (not repeated through each iteration)
+    // Below code required independent research, as FlatLists cannot be nested within other FlatLists or ScrollViews, so a map function was required
     return (
         <SafeAreaView>
             <ScrollView>
@@ -72,7 +70,7 @@ const GameCompleteScreen = ({route, navigation}) => {
                         );
                     })
                 }
-                <Button color='blue' title='Done' onPress={() => navigation.navigate('GameHistory')} />
+                <Button color='blue' title='Done' onPress={() => navigation.navigate('Home')} />
             </ScrollView>
         </SafeAreaView>
     );

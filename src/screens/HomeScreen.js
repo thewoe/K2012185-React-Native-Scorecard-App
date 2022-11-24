@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import NavigationButton from '../components/NavigationButton';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView>
             <View>

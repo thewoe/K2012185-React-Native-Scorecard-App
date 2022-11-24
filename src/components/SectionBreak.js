@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 
 // Below code required independent research, to create a section header with a title in its centre
-
 const SectionBreak = ({ headerTitle }) => {
     return (
         <View style={styles.sectionContainer}>
@@ -12,7 +11,7 @@ const SectionBreak = ({ headerTitle }) => {
                 <View style={styles.lineSeparator} />
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     sectionContainer: {

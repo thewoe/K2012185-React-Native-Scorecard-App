@@ -3,9 +3,10 @@ import { Pressable, StyleSheet, View, Text } from 'react-native';
 import { Camera, CameraType, FlashMode } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 
-const EndCameraScreen = ({navigation, route}) => {
+const EndCameraScreen = ({ route, navigation }) => {
     const { end } = route.params;
     const [hasCameraPermission, setHasCameraPermission] = useState(null);
+
     // Below code required independent research, to create save an image taken by the camera to the camera roll/photo gallery
     const [hasLibraryPermission, setHasLibraryPermission] = useState(null);
     const [cameraType, setCameraType] = useState(CameraType.back);
@@ -23,6 +24,7 @@ const EndCameraScreen = ({navigation, route}) => {
             navigation.navigate('EndPhoto', { uri: persistantUri.uri, end: end })
         }
     };
+
     // Below code required independent research, to allow the camera mode to be toggled i.e., between back and front cameras
     const toggleCamera = () => setCameraType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
     useEffect(() => { getPermission(); }, []);
