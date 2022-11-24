@@ -10,7 +10,9 @@ const SectionDetail = ({ title, details }) => {
 
 const styles = StyleSheet.create({
     title: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontSize: 18,
+        margin: 5
     },
     details: {
         fontWeight: 'normal'

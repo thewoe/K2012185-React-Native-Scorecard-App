@@ -13,7 +13,7 @@ const HomeScreen = ({ navigation }) => {
                 <Text style={styles.infoMessage}>Would you like to?</Text>
                 <NavigationButton color='green' message='View Game History' screenName='GameHistory' navigation={navigation} />
                 <NavigationButton color='green' message='Create New Game' screenName='NewGame' navigation={navigation} />
-                <NavigationButton color='green' message='Help Me' screenName='Help' navigation={navigation} />
+                <NavigationButton color='green' message='Help' screenName='Help' navigation={navigation} />
             </View>
         </SafeAreaView>
     );

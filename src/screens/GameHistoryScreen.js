@@ -8,49 +8,47 @@ const GameHistoryScreen = ({ navigation }) => {
     const { state, remove } = useContext(ItemContext);
     return (
         <SafeAreaView>
-            <ScrollView horizontal={false}>
-                <FlatList
-                    scrollEnabled={false}
-                    data={state}
-                    keyExtractor={data => data.id.toString()}
-                    renderItem={({item}) => {
-                        return (
-                            <Pressable onPress={() => navigation.navigate('GameComplete', {id: item.id})}>
-                                <View style={styles.itemContainer}>
-                                    <Text style={styles.matchTitleText}>{item.match.title}</Text>
-                                    <View style={styles.contentContainer}>
-                                        <View style={styles.dateContainer}>
-                                            <Text style={styles.dateText}>
-                                                {new Date(item.match.dateTime).toLocaleDateString()}
-                                            </Text>
-                                            <Text>
-                                                {new Date(item.match.dateTime).toLocaleTimeString()}
-                                            </Text>
-                                        </View>
-                                        <View>
-                                            <Text style={(item.teams.finalscore.winner === 'team1') ? styles.winningTeam : styles.titleText}>{`${item.teams.team1.team1Name}`}</Text>
-                                            <Text style={(item.teams.finalscore.winner === 'team1') ? styles.winningTeam : styles.titleText}>{`${item.teams.finalscore.team1Score}`}</Text>
-                                        </View>
-                                        <View style={styles.vsContainer}>
-                                            <Text style={styles.vsText}> vs </Text>
-                                        </View>
-                                        <View>
-                                        <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{`${item.teams.team2.team2Name}`}</Text>
-                                            <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{`${item.teams.finalscore.team2Score}`}</Text>
-                                        </View>
-                                        <Pressable onPress={() => navigation.navigate('EditScorecard', { id: item.id })}>
-                                            <MaterialIcons name='edit' size={38} color='blue' />
-                                        </Pressable>
-                                        <Pressable onPress={() => remove(item.id)}>
-                                            <MaterialIcons name='delete' size={38} color='red' />
-                                        </Pressable>
+            <FlatList
+                scrollEnabled={false}
+                data={state}
+                keyExtractor={data => data.id.toString()}
+                renderItem={({item}) => {
+                    return (
+                        <Pressable onPress={() => navigation.navigate('GameComplete', {id: item.id})}>
+                            <View style={styles.itemContainer}>
+                                <Text style={styles.matchTitleText}>{item.match.title}</Text>
+                                <View style={styles.contentContainer}>
+                                    <View style={styles.dateContainer}>
+                                        <Text style={styles.dateText}>
+                                            {new Date(item.match.dateTime).toLocaleDateString()}
+                                        </Text>
+                                        <Text>
+                                            {new Date(item.match.dateTime).toLocaleTimeString()}
+                                        </Text>
                                     </View>
+                                    <View>
+                                        <Text style={(item.teams.finalscore.winner === 'team1') ? styles.winningTeam : styles.titleText}>{`${item.teams.team1.team1Name}`}</Text>
+                                        <Text style={(item.teams.finalscore.winner === 'team1') ? styles.winningTeam : styles.titleText}>{`${item.teams.finalscore.team1Score}`}</Text>
+                                    </View>
+                                    <View style={styles.vsContainer}>
+                                        <Text style={styles.vsText}> vs </Text>
+                                    </View>
+                                    <View>
+                                    <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{`${item.teams.team2.team2Name}`}</Text>
+                                        <Text style={(item.teams.finalscore.winner === 'team2') ? styles.winningTeam : styles.titleText}>{`${item.teams.finalscore.team2Score}`}</Text>
+                                    </View>
+                                    <Pressable onPress={() => navigation.navigate('EditScorecard', { id: item.id })}>
+                                        <MaterialIcons name='edit' size={38} color='blue' />
+                                    </Pressable>
+                                    <Pressable onPress={() => remove(item.id)}>
+                                        <MaterialIcons name='delete' size={38} color='red' />
+                                    </Pressable>
                                 </View>
-                            </Pressable>
-                        );
-                    }}
-                />
-            </ScrollView>
+                            </View>
+                        </Pressable>
+                    );
+                }}
+            />
         </SafeAreaView>
     );
 };
