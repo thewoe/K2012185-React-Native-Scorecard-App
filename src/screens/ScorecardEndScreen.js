@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useContext, useState, useEffect } from 'react';
 import ItemContext from '../contexts/ItemContext';
 import NavigationButton from '../components/NavigationButton';
+import SectionBreak from '../components/SectionBreak';
 
 const ScorecardEndScreen = ({ route, navigation }) => {
   const { competitionName, dateTime, rinkNumber, team1Name, team2Name, team1Players, team2Players, image } = route.params;
@@ -114,32 +115,40 @@ const ScorecardEndScreen = ({ route, navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView keyboardDismissMode='on-drag'>
+        <Text style={styles.header}>End Scores</Text>
+        <Text style={styles.helpMessage}>When inputting scores for a team, only enter the shots value for the scoring team. The other team will automatically be awarded a score of 0.</Text>
         {endFields.map((item) => {
             return (
-                <View key={item.end}>
-                  <Text style={styles.textLabel}>{`End ${item.end}`}</Text>
-                  <Text style={styles.textLabel}>{team1Name}</Text>
-                  <Text style={styles.textLabel}>SHOTS</Text>
-                  <TextInput
-                    keyboardType='number-pad'
-                    style={styles.textInput}
-                    placeholder={`${team1Name} shots`}
-                    value={ends[item.end]}
-                    onChangeText={input => handleTeam1EndTextInput(input, item.end)}
-                  />
-                  <Text style={styles.textLabel}>TOTAL</Text>
-                  <Text style={styles.textLabel}>{(ends.length > 0) && (item.end < ends.length) && ends[item.end-1].team1Score}</Text>
-                  <Text style={styles.textLabel}>{team2Name}</Text>
-                  <Text style={styles.textLabel}>SHOTS</Text>
-                  <TextInput
-                    keyboardType='number-pad'
-                    style={styles.textInput}
-                    placeholder={`${team2Name} shots`}
-                    value={ends[item.end]}
-                    onChangeText={input => handleTeam2EndTextInput(input, item.end)}
-                  />
-                  <Text style={styles.textLabel}>TOTAL</Text>
-                  <Text style={styles.textLabel}>{(ends.length > 0) && (item.end < ends.length) && ends[item.end-1].team2Score}</Text>
+                <View style={styles.endContainer} key={item.end}>
+                  <SectionBreak headerTitle={`End ${item.end}`}/>
+                  <View style={styles.scoreTeamHeaderContainer}>
+                    <Text style={styles.teamName}>{team1Name}</Text>
+                    <Text style={styles.teamName}>{team2Name}</Text>
+                  </View>
+                  <View style={styles.scoreHeaderContainer}>
+                    <Text style={styles.scoreHeader}>Shots</Text>
+                    <Text style={styles.scoreHeader}>Total</Text>
+                    <Text style={styles.scoreHeader}>Shots</Text>
+                    <Text style={styles.scoreHeader}>Total</Text>
+                  </View>
+                  <View style={styles.scoreContainer}>
+                    <TextInput
+                      keyboardType='number-pad'
+                      style={styles.textInput1}
+                      placeholder='0'
+                      value={ends[item.end]}
+                      onChangeText={input => handleTeam1EndTextInput(input, item.end)}
+                    />
+                    <Text style={styles.textLabel}>{(ends.length > 0) && (item.end < ends.length) && ends[item.end-1].team1Score}</Text>
+                    <TextInput
+                      keyboardType='number-pad'
+                      style={styles.textInput2}
+                      placeholder='0'
+                      value={ends[item.end]}
+                      onChangeText={input => handleTeam2EndTextInput(input, item.end)}
+                    />
+                    <Text style={styles.textLabel}>{(ends.length > 0) && (item.end < ends.length) && ends[item.end-1].team2Score}</Text>
+                  </View>
                   <NavigationButton color='green' message='Take Picture' screenName='EndCamera' navigation={navigation} data={{ end: item.end }} />
                 </View>
             );
@@ -175,6 +184,80 @@ const ScorecardEndScreen = ({ route, navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  header: {
+    marginBottom: 20,
+    fontSize: 25,
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+  helpMessage: {
+    margin: 10,
+    fontWeight: 'bold',
+    fontSize: 14,
+    color: 'red'
+  },
+  scoreTeamHeaderContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 10,
+    marginHorizontal: 60,
+    marginBottom: 0
+  },
+  scoreHeaderContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    margin: 10,
+    marginTop: 0
+  },
+  scoreContainer: {
+    margin: 10,
+    marginLeft: 0,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: 300
+  },
+  scoreHeader: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    width: 60
+  },
+  teamName: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginBottom: 10
+  },
+  textLabel: {
+    margin: 10,
+    marginLeft: 40,
+    fontWeight: 'bold',
+    fontSize: 20
+  },
+  textInput1: {
+    marginTop: 0,
+    marginBottom: 15,
+    marginRight: 10,
+    padding: 10,
+    fontSize: 20,
+    borderWidth: 1,
+    width: 50,
+    marginHorizontal: 25,
+    textAlign: 'center'
+  },
+  textInput2: {
+    marginTop: 0,
+    marginBottom: 15,
+    marginRight: 10,
+    padding: 10,
+    fontSize: 20,
+    borderWidth: 1,
+    width: 50,
+    marginHorizontal: 55,
+    textAlign: 'center'
+  },
+});
 
 export default ScorecardEndScreen;

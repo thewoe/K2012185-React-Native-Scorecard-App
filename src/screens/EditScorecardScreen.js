@@ -295,6 +295,7 @@ const EditScorecardScreen = ({ route, navigation }) => {
                 })}
                 { displayTeam2AddNewPlayer && <Button onPress={handleNewTeam2PlayerClick} title='Add another Team 2 player' /> }
                 <SectionBreak headerTitle='Ends' />
+                <Text style={styles.helpMessage}>When editing scores for a team, only enter the shots value for the scoring team. The other team will automatically be awarded a score of 0.</Text>
                 {endFields.map((item) => {
                         return (
                             <View key={item.end}>
@@ -359,6 +360,12 @@ const styles = StyleSheet.create({
         fontSize: 25,
         textAlign: 'center',
         fontWeight: 'bold'
+    },
+    helpMessage: {
+        margin: 10,
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: 'red'
     },
     textLabel: {
         margin: 10,
